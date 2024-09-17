@@ -9,14 +9,29 @@
 /* Begin PBXBuildFile section */
 		CF40AC662C9971FD00D9855D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC652C9971FD00D9855D /* AppDelegate.swift */; };
 		CF40AC682C9971FD00D9855D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC672C9971FD00D9855D /* SceneDelegate.swift */; };
-		CF40AC6A2C9971FD00D9855D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC692C9971FD00D9855D /* ViewController.swift */; };
-		CF40AC6D2C9971FD00D9855D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = CF40AC6C2C9971FD00D9855D /* Base */; };
+		CF40AC6A2C9971FD00D9855D /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC692C9971FD00D9855D /* MainViewController.swift */; };
 		CF40AC702C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC6E2C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld */; };
 		CF40AC722C99720000D9855D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CF40AC712C99720000D9855D /* Assets.xcassets */; };
 		CF40AC752C99720000D9855D /* Base in Resources */ = {isa = PBXBuildFile; fileRef = CF40AC742C99720000D9855D /* Base */; };
 		CF40AC802C99720100D9855D /* ToDoListTestTaskTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC7F2C99720100D9855D /* ToDoListTestTaskTests.swift */; };
 		CF40AC8A2C99720100D9855D /* ToDoListTestTaskUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC892C99720100D9855D /* ToDoListTestTaskUITests.swift */; };
 		CF40AC8C2C99720100D9855D /* ToDoListTestTaskUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC8B2C99720100D9855D /* ToDoListTestTaskUITestsLaunchTests.swift */; };
+		CF40AC9A2C9973B000D9855D /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC992C9973B000D9855D /* MainView.swift */; };
+		CF40AC9E2C9973D100D9855D /* TodoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40AC9D2C9973D100D9855D /* TodoModel.swift */; };
+		CF40ACA12C9973EC00D9855D /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA02C9973EC00D9855D /* MainViewModel.swift */; };
+		CF40ACA42C99A46A00D9855D /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA32C99A46A00D9855D /* EndPointType.swift */; };
+		CF40ACAA2C99A47E00D9855D /* NetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA52C99A47E00D9855D /* NetworkModel.swift */; };
+		CF40ACAB2C99A47E00D9855D /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA62C99A47E00D9855D /* URLParameterEncoder.swift */; };
+		CF40ACAC2C99A47E00D9855D /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA72C99A47E00D9855D /* NetworkManager.swift */; };
+		CF40ACAD2C99A47E00D9855D /* ParamEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA82C99A47E00D9855D /* ParamEncoding.swift */; };
+		CF40ACAE2C99A47E00D9855D /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACA92C99A47E00D9855D /* JSONParameterEncoder.swift */; };
+		CF40ACB62C99A4AD00D9855D /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB02C99A4AD00D9855D /* Router.swift */; };
+		CF40ACB72C99A4AD00D9855D /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB12C99A4AD00D9855D /* HTTPMethod.swift */; };
+		CF40ACB82C99A4AD00D9855D /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB22C99A4AD00D9855D /* HTTPTask.swift */; };
+		CF40ACB92C99A4AD00D9855D /* NetworkLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB32C99A4AD00D9855D /* NetworkLogger.swift */; };
+		CF40ACBA2C99A4AD00D9855D /* NetworkResponseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB42C99A4AD00D9855D /* NetworkResponseError.swift */; };
+		CF40ACBB2C99A4AD00D9855D /* NetworkRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB52C99A4AD00D9855D /* NetworkRouterProtocol.swift */; };
+		CF40ACBE2C99A6E900D9855D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACBD2C99A6E900D9855D /* CoreDataManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,8 +55,7 @@
 		CF40AC622C9971FD00D9855D /* ToDoListTestTask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListTestTask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF40AC652C9971FD00D9855D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CF40AC672C9971FD00D9855D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		CF40AC692C9971FD00D9855D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CF40AC6C2C9971FD00D9855D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		CF40AC692C9971FD00D9855D /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		CF40AC6F2C9971FD00D9855D /* ToDoListTestTask.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ToDoListTestTask.xcdatamodel; sourceTree = "<group>"; };
 		CF40AC712C99720000D9855D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CF40AC742C99720000D9855D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -51,6 +65,22 @@
 		CF40AC852C99720100D9855D /* ToDoListTestTaskUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoListTestTaskUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CF40AC892C99720100D9855D /* ToDoListTestTaskUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTestTaskUITests.swift; sourceTree = "<group>"; };
 		CF40AC8B2C99720100D9855D /* ToDoListTestTaskUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListTestTaskUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		CF40AC992C9973B000D9855D /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		CF40AC9D2C9973D100D9855D /* TodoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodoModel.swift; sourceTree = "<group>"; };
+		CF40ACA02C9973EC00D9855D /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
+		CF40ACA32C99A46A00D9855D /* EndPointType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		CF40ACA52C99A47E00D9855D /* NetworkModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkModel.swift; sourceTree = "<group>"; };
+		CF40ACA62C99A47E00D9855D /* URLParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		CF40ACA72C99A47E00D9855D /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		CF40ACA82C99A47E00D9855D /* ParamEncoding.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParamEncoding.swift; sourceTree = "<group>"; };
+		CF40ACA92C99A47E00D9855D /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		CF40ACB02C99A4AD00D9855D /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		CF40ACB12C99A4AD00D9855D /* HTTPMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		CF40ACB22C99A4AD00D9855D /* HTTPTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		CF40ACB32C99A4AD00D9855D /* NetworkLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkLogger.swift; sourceTree = "<group>"; };
+		CF40ACB42C99A4AD00D9855D /* NetworkResponseError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResponseError.swift; sourceTree = "<group>"; };
+		CF40ACB52C99A4AD00D9855D /* NetworkRouterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRouterProtocol.swift; sourceTree = "<group>"; };
+		CF40ACBD2C99A6E900D9855D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,10 +131,11 @@
 		CF40AC642C9971FD00D9855D /* ToDoListTestTask */ = {
 			isa = PBXGroup;
 			children = (
+				CF40ACBC2C99A6D600D9855D /* CoreDataManager */,
+				CF40ACA22C99A3EB00D9855D /* NetworkManager */,
+				CF40AC982C99739400D9855D /* MainView */,
 				CF40AC652C9971FD00D9855D /* AppDelegate.swift */,
 				CF40AC672C9971FD00D9855D /* SceneDelegate.swift */,
-				CF40AC692C9971FD00D9855D /* ViewController.swift */,
-				CF40AC6B2C9971FD00D9855D /* Main.storyboard */,
 				CF40AC712C99720000D9855D /* Assets.xcassets */,
 				CF40AC732C99720000D9855D /* LaunchScreen.storyboard */,
 				CF40AC762C99720000D9855D /* Info.plist */,
@@ -128,6 +159,76 @@
 				CF40AC8B2C99720100D9855D /* ToDoListTestTaskUITestsLaunchTests.swift */,
 			);
 			path = ToDoListTestTaskUITests;
+			sourceTree = "<group>";
+		};
+		CF40AC982C99739400D9855D /* MainView */ = {
+			isa = PBXGroup;
+			children = (
+				CF40AC9F2C9973DA00D9855D /* ViewModel */,
+				CF40AC9C2C9973C000D9855D /* Model */,
+				CF40AC9B2C9973B700D9855D /* View */,
+			);
+			path = MainView;
+			sourceTree = "<group>";
+		};
+		CF40AC9B2C9973B700D9855D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				CF40AC992C9973B000D9855D /* MainView.swift */,
+				CF40AC692C9971FD00D9855D /* MainViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		CF40AC9C2C9973C000D9855D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				CF40AC9D2C9973D100D9855D /* TodoModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		CF40AC9F2C9973DA00D9855D /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				CF40ACA02C9973EC00D9855D /* MainViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		CF40ACA22C99A3EB00D9855D /* NetworkManager */ = {
+			isa = PBXGroup;
+			children = (
+				CF40ACA92C99A47E00D9855D /* JSONParameterEncoder.swift */,
+				CF40ACA72C99A47E00D9855D /* NetworkManager.swift */,
+				CF40ACA52C99A47E00D9855D /* NetworkModel.swift */,
+				CF40ACA82C99A47E00D9855D /* ParamEncoding.swift */,
+				CF40ACA62C99A47E00D9855D /* URLParameterEncoder.swift */,
+				CF40ACA32C99A46A00D9855D /* EndPointType.swift */,
+				CF40ACAF2C99A48900D9855D /* Service */,
+			);
+			path = NetworkManager;
+			sourceTree = "<group>";
+		};
+		CF40ACAF2C99A48900D9855D /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				CF40ACB12C99A4AD00D9855D /* HTTPMethod.swift */,
+				CF40ACB22C99A4AD00D9855D /* HTTPTask.swift */,
+				CF40ACB32C99A4AD00D9855D /* NetworkLogger.swift */,
+				CF40ACB42C99A4AD00D9855D /* NetworkResponseError.swift */,
+				CF40ACB52C99A4AD00D9855D /* NetworkRouterProtocol.swift */,
+				CF40ACB02C99A4AD00D9855D /* Router.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		CF40ACBC2C99A6D600D9855D /* CoreDataManager */ = {
+			isa = PBXGroup;
+			children = (
+				CF40ACBD2C99A6E900D9855D /* CoreDataManager.swift */,
+			);
+			path = CoreDataManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,7 +337,6 @@
 			files = (
 				CF40AC722C99720000D9855D /* Assets.xcassets in Resources */,
 				CF40AC752C99720000D9855D /* Base in Resources */,
-				CF40AC6D2C9971FD00D9855D /* Base in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,9 +361,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CF40AC6A2C9971FD00D9855D /* ViewController.swift in Sources */,
+				CF40ACBA2C99A4AD00D9855D /* NetworkResponseError.swift in Sources */,
+				CF40ACA42C99A46A00D9855D /* EndPointType.swift in Sources */,
+				CF40ACA12C9973EC00D9855D /* MainViewModel.swift in Sources */,
+				CF40AC6A2C9971FD00D9855D /* MainViewController.swift in Sources */,
+				CF40ACAA2C99A47E00D9855D /* NetworkModel.swift in Sources */,
+				CF40ACAE2C99A47E00D9855D /* JSONParameterEncoder.swift in Sources */,
+				CF40ACAC2C99A47E00D9855D /* NetworkManager.swift in Sources */,
 				CF40AC662C9971FD00D9855D /* AppDelegate.swift in Sources */,
+				CF40ACAD2C99A47E00D9855D /* ParamEncoding.swift in Sources */,
+				CF40ACB72C99A4AD00D9855D /* HTTPMethod.swift in Sources */,
 				CF40AC702C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld in Sources */,
+				CF40AC9E2C9973D100D9855D /* TodoModel.swift in Sources */,
+				CF40ACB62C99A4AD00D9855D /* Router.swift in Sources */,
+				CF40ACB82C99A4AD00D9855D /* HTTPTask.swift in Sources */,
+				CF40AC9A2C9973B000D9855D /* MainView.swift in Sources */,
+				CF40ACAB2C99A47E00D9855D /* URLParameterEncoder.swift in Sources */,
+				CF40ACB92C99A4AD00D9855D /* NetworkLogger.swift in Sources */,
+				CF40ACBB2C99A4AD00D9855D /* NetworkRouterProtocol.swift in Sources */,
+				CF40ACBE2C99A6E900D9855D /* CoreDataManager.swift in Sources */,
 				CF40AC682C9971FD00D9855D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -301,14 +417,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CF40AC6B2C9971FD00D9855D /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CF40AC6C2C9971FD00D9855D /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CF40AC732C99720000D9855D /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -451,9 +559,10 @@
 				INFOPLIST_FILE = ToDoListTestTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -461,9 +570,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = AleksandrKorotkov.ToDoListTestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -479,9 +592,10 @@
 				INFOPLIST_FILE = ToDoListTestTask/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIMainStoryboardFile = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -489,9 +603,13 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = AleksandrKorotkov.ToDoListTestTask;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
