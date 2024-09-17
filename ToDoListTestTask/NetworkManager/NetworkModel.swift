@@ -18,7 +18,7 @@ extension NetworkModel: EndPointType {
     }
     
     var baseURL: URL {
-        guard let url = URL(string: "https://szorin.vodovoz.ru") else { fatalError("BaseURL could not be configured.") }
+        guard let url = URL(string: "https://dummyjson.com") else { fatalError("BaseURL could not be configured.") }
         return url
     }
     
@@ -45,9 +45,7 @@ extension NetworkModel: EndPointType {
     private var apiPath: String {
         switch self {
         case .getData:
-            return "/newmobile/glavnaya/super_top.php?action=topglav"
-        default:
-            return ""
+            return "/todos"
         }
         
     }
