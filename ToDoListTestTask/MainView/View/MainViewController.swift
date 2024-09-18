@@ -29,7 +29,7 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FooterCollectionCell", for: indexPath) as? FooterCollectionCell else { return UICollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FooterCollectionCell.identifier, for: indexPath) as? FooterCollectionCell else { return UICollectionViewCell() }
         
         return cell
     }

@@ -42,6 +42,7 @@
 		CF40ACD62C99ED6400D9855D /* FooterCollectionViewFL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD52C99ED6400D9855D /* FooterCollectionViewFL.swift */; };
 		CF40ACD82C99ED8500D9855D /* FooterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */; };
 		CF40ACDA2C99F36E00D9855D /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD92C99F36E00D9855D /* BaseButton.swift */; };
+		CF40ACDC2C9AC6CB00D9855D /* ExtentionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		CF40ACD52C99ED6400D9855D /* FooterCollectionViewFL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionViewFL.swift; sourceTree = "<group>"; };
 		CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionCell.swift; sourceTree = "<group>"; };
 		CF40ACD92C99F36E00D9855D /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -279,6 +281,7 @@
 				CF40ACCC2C99B89500D9855D /* ExtentionDate.swift */,
 				CF40ACCE2C99B9A700D9855D /* BaseView.swift */,
 				CF40ACD92C99F36E00D9855D /* BaseButton.swift */,
+				CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */,
 			);
 			path = "Extention&BaseElements";
 			sourceTree = "<group>";
@@ -430,6 +433,7 @@
 				CF40AC6A2C9971FD00D9855D /* MainViewController.swift in Sources */,
 				CF40ACAA2C99A47E00D9855D /* NetworkModel.swift in Sources */,
 				CF40ACAE2C99A47E00D9855D /* JSONParameterEncoder.swift in Sources */,
+				CF40ACDC2C9AC6CB00D9855D /* ExtentionCollectionCell.swift in Sources */,
 				CF40ACAC2C99A47E00D9855D /* NetworkManager.swift in Sources */,
 				CF40AC662C9971FD00D9855D /* AppDelegate.swift in Sources */,
 				CF40ACAD2C99A47E00D9855D /* ParamEncoding.swift in Sources */,

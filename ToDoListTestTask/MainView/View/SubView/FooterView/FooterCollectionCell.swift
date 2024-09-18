@@ -9,9 +9,17 @@ import UIKit
 
 final class FooterCollectionCell: UICollectionViewCell {
     
+    private(set) lazy var background: UIView = {
+        let label = UIView()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello World"
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textColor = .black
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -19,34 +27,42 @@ final class FooterCollectionCell: UICollectionViewCell {
     private(set) lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello World"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private(set) lazy var dayLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hello World"
+        label.text = Date().dayOfWeek()
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private(set) lazy var timeLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hello World"
+        label.text = "Time label"
+        label.font = UIFont.systemFont(ofSize: 15)
+        label.textColor = .lightGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private(set) lazy var separatorView: UIView = {
-        let label = UIView()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let view = UIView()
+        view.backgroundColor = .systemGray6
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     private(set) lazy var doneButton: BaseButton = {
         let button = BaseButton()
-        button.layer.borderWidth = 0.3
-        button.layer.borderColor = UIColor.green.cgColor
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.systemGray5.cgColor
+//        button.layer.cornerRadius = frame.width / 2
         return button
     }()
     
@@ -59,11 +75,16 @@ final class FooterCollectionCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    override func layoutSubviews() {
+        doneButton.layer.cornerRadius = frame.height / 8
+    }
 }
 
 private extension FooterCollectionCell {
     
     func setupView() {
+        addSubview(background)
         addSubview(titleLabel)
         addSubview(subTitleLabel)
         addSubview(separatorView)
@@ -71,35 +92,40 @@ private extension FooterCollectionCell {
         addSubview(timeLabel)
         addSubview(doneButton)
         translatesAutoresizingMaskIntoConstraints = false
-        backgroundColor = .white
+        background.backgroundColor = .white
+        background.layer.cornerRadius = 10
+
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            titleLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 5),
-            titleLabel.bottomAnchor.constraint(equalTo: subTitleLabel.topAnchor, constant: -5),
+            titleLabel.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 10),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
 
-            subTitleLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            subTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            subTitleLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 5),
-            subTitleLabel.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -5),
+            subTitleLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 5),
+            subTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             
-            separatorView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 5),
-            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -5),
-            separatorView.widthAnchor.constraint(equalToConstant: 2),
+            doneButton.centerYAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            doneButton.leadingAnchor.constraint(greaterThanOrEqualTo: subTitleLabel.trailingAnchor, constant: 20),
+
+            separatorView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 10),
+            separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            separatorView.heightAnchor.constraint(equalToConstant: 2),
             
-            dayLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 5),
-            dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            dayLabel.trailingAnchor.constraint(equalTo: timeLabel.leadingAnchor, constant: 5),
-            dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            dayLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
+            dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             
-            timeLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 5),
-            timeLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            timeLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: 5),
-            timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            timeLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
+            timeLabel.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 5),
+            timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
+            
+            background.topAnchor.constraint(equalTo: topAnchor),
+            background.leadingAnchor.constraint(equalTo: leadingAnchor),
+            background.trailingAnchor.constraint(equalTo: trailingAnchor),
+            background.bottomAnchor.constraint(equalTo: bottomAnchor),
         ])
         
     }

@@ -12,8 +12,8 @@ final class FooterCollectionViewFL: UICollectionViewFlowLayout {
     override init() {
         super.init()
         scrollDirection = .vertical
-        sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        itemSize = CGSize(width: 300, height: 150)
+        minimumInteritemSpacing = 10
+
     }
     
     required init?(coder: NSCoder) {
