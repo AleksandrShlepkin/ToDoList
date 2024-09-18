@@ -8,16 +8,16 @@
 import UIKit
 
 final class MainView: UIView {
-    
-    
-    private lazy var headerView = HeaderView()
-    private lazy var middleView = MiddleView()
+        
     private(set) lazy var footerView: FooterCollectionView = {
         let layout = FooterCollectionViewFL()
         let collection = FooterCollectionView(frame: .zero, collectionViewLayout: layout)
         
         return collection
     }()
+
+    private lazy var headerView = HeaderView()
+    private lazy var middleView = MiddleView()
     
     private var mokView: UIView = {
         let view = UIView()
@@ -44,7 +44,7 @@ private extension MainView {
         addSubview(headerView)
         addSubview(middleView)
         addSubview(footerView)
-        footerView.register(FooterCollectionCell.self, forCellWithReuseIdentifier: "FooterCollectionCell")
+        footerView.register(FooterCollectionCell.self, forCellWithReuseIdentifier: FooterCollectionCell.identifier)
     }
     
     func setupConstraints() {
@@ -54,17 +54,14 @@ private extension MainView {
             headerView.topAnchor.constraint(equalTo: topAnchor),
             headerView.trailingAnchor.constraint(equalTo: trailingAnchor),
             headerView.heightAnchor.constraint(equalToConstant: 150),
-            //            headerView.bottomAnchor.constraint(equalTo: middleView.topAnchor, constant: 50),
             
             middleView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             middleView.topAnchor.constraint(equalTo: headerView.bottomAnchor, constant: 10),
-            middleView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -100),
-            //            middleView.heightAnchor.constraint(equalToConstant: 100),
-            middleView.bottomAnchor.constraint(equalTo: footerView.topAnchor, constant:  -30),
+            middleView.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: -100),
             
-            footerView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            footerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             footerView.topAnchor.constraint(equalTo: middleView.bottomAnchor),
-            footerView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             footerView.bottomAnchor.constraint(equalTo: bottomAnchor)
             
         ])
