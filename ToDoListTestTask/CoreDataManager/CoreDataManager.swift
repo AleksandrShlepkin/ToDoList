@@ -78,7 +78,7 @@ final class CoreDataManager: NSObject {
     
     private func savePrivateContext() {
         if privateManagedObjectContext.hasChanges {
-            privateManagedObjectContext.perform {
+            privateManagedObjectContext.performAndWait {
                 do {
                     try self.privateManagedObjectContext.save()
                 } catch {
@@ -153,7 +153,6 @@ extension CoreDataManager {
                     let fetchRequest = NSFetchRequest<T>(entityName: String(describing: entityType))
                     fetchRequest.predicate = NSPredicate(format: "SELF == %@", object)
                     fetchRequest.fetchLimit = 1
-                    //MARK: Тестовый метод
                     if let fetchedObject = try? self.privateManagedObjectContext.fetch(fetchRequest).first {
                         fetchedObject.setValuesForKeys(object.dictionaryWithValues(forKeys: object.entity.attributesByName.keys.map { $0 }))
                     }

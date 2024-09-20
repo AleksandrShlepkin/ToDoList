@@ -33,9 +33,8 @@
 		CF40ACBB2C99A4AD00D9855D /* NetworkRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACB52C99A4AD00D9855D /* NetworkRouterProtocol.swift */; };
 		CF40ACBE2C99A6E900D9855D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACBD2C99A6E900D9855D /* CoreDataManager.swift */; };
 		CF40ACC52C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACC12C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift */; };
-		CF40ACC72C99B6A100D9855D /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACC32C99B6A100D9855D /* TaskEntity+CoreDataProperties.swift */; };
 		CF40ACCA2C99B6EA00D9855D /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACC92C99B6EA00D9855D /* HeaderView.swift */; };
-		CF40ACCD2C99B89500D9855D /* ExtentionDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACCC2C99B89500D9855D /* ExtentionDate.swift */; };
+		CF40ACCD2C99B89500D9855D /* ExtentionDate&UUID.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACCC2C99B89500D9855D /* ExtentionDate&UUID.swift */; };
 		CF40ACCF2C99B9A700D9855D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACCE2C99B9A700D9855D /* BaseView.swift */; };
 		CF40ACD12C99CF9F00D9855D /* MiddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD02C99CF9F00D9855D /* MiddleView.swift */; };
 		CF40ACD42C99ED2B00D9855D /* FooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD32C99ED2B00D9855D /* FooterCollectionView.swift */; };
@@ -43,6 +42,11 @@
 		CF40ACD82C99ED8500D9855D /* FooterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */; };
 		CF40ACDA2C99F36E00D9855D /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD92C99F36E00D9855D /* BaseButton.swift */; };
 		CF40ACDC2C9AC6CB00D9855D /* ExtentionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */; };
+		CF40ACDF2C9B30F200D9855D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACDE2C9B30F200D9855D /* StorageManager.swift */; };
+		CF40ACE32C9C163000D9855D /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */; };
+		CF40ACE52C9C259F00D9855D /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE42C9C259F00D9855D /* AddTaskView.swift */; };
+		CF40ACE72C9C267F00D9855D /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE62C9C267F00D9855D /* BaseTextField.swift */; };
+		CF40ACE92C9C26BA00D9855D /* ExtentionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE82C9C26BA00D9855D /* ExtentionTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,9 +97,8 @@
 		CF40ACB52C99A4AD00D9855D /* NetworkRouterProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkRouterProtocol.swift; sourceTree = "<group>"; };
 		CF40ACBD2C99A6E900D9855D /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		CF40ACC12C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoListEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		CF40ACC32C99B6A100D9855D /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF40ACC92C99B6EA00D9855D /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		CF40ACCC2C99B89500D9855D /* ExtentionDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionDate.swift; sourceTree = "<group>"; };
+		CF40ACCC2C99B89500D9855D /* ExtentionDate&UUID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ExtentionDate&UUID.swift"; sourceTree = "<group>"; };
 		CF40ACCE2C99B9A700D9855D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		CF40ACD02C99CF9F00D9855D /* MiddleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleView.swift; sourceTree = "<group>"; };
 		CF40ACD32C99ED2B00D9855D /* FooterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionView.swift; sourceTree = "<group>"; };
@@ -103,6 +106,11 @@
 		CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionCell.swift; sourceTree = "<group>"; };
 		CF40ACD92C99F36E00D9855D /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCollectionCell.swift; sourceTree = "<group>"; };
+		CF40ACDE2C9B30F200D9855D /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		CF40ACE42C9C259F00D9855D /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		CF40ACE62C9C267F00D9855D /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
+		CF40ACE82C9C26BA00D9855D /* ExtentionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,10 +165,10 @@
 				CF40ACBC2C99A6D600D9855D /* CoreDataManager */,
 				CF40ACA22C99A3EB00D9855D /* NetworkManager */,
 				CF40AC982C99739400D9855D /* MainView */,
-				CF40AC652C9971FD00D9855D /* AppDelegate.swift */,
 				CF40AC672C9971FD00D9855D /* SceneDelegate.swift */,
 				CF40AC712C99720000D9855D /* Assets.xcassets */,
 				CF40AC732C99720000D9855D /* LaunchScreen.storyboard */,
+				CF40AC652C9971FD00D9855D /* AppDelegate.swift */,
 				CF40AC762C99720000D9855D /* Info.plist */,
 				CF40AC6E2C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld */,
 			);
@@ -187,6 +195,7 @@
 		CF40AC982C99739400D9855D /* MainView */ = {
 			isa = PBXGroup;
 			children = (
+				CF40ACDD2C9B30D100D9855D /* StorageManager */,
 				CF40AC9F2C9973DA00D9855D /* ViewModel */,
 				CF40AC9C2C9973C000D9855D /* Model */,
 				CF40AC9B2C9973B700D9855D /* View */,
@@ -259,8 +268,8 @@
 		CF40ACBF2C99B67D00D9855D /* CoreDataEntity */ = {
 			isa = PBXGroup;
 			children = (
+				CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */,
 				CF40ACC12C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift */,
-				CF40ACC32C99B6A100D9855D /* TaskEntity+CoreDataProperties.swift */,
 			);
 			path = CoreDataEntity;
 			sourceTree = "<group>";
@@ -271,6 +280,7 @@
 				CF40ACD22C99E0FC00D9855D /* FooterView */,
 				CF40ACC92C99B6EA00D9855D /* HeaderView.swift */,
 				CF40ACD02C99CF9F00D9855D /* MiddleView.swift */,
+				CF40ACE42C9C259F00D9855D /* AddTaskView.swift */,
 			);
 			path = SubView;
 			sourceTree = "<group>";
@@ -278,10 +288,12 @@
 		CF40ACCB2C99B88400D9855D /* Extention&BaseElements */ = {
 			isa = PBXGroup;
 			children = (
-				CF40ACCC2C99B89500D9855D /* ExtentionDate.swift */,
+				CF40ACCC2C99B89500D9855D /* ExtentionDate&UUID.swift */,
 				CF40ACCE2C99B9A700D9855D /* BaseView.swift */,
 				CF40ACD92C99F36E00D9855D /* BaseButton.swift */,
 				CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */,
+				CF40ACE62C9C267F00D9855D /* BaseTextField.swift */,
+				CF40ACE82C9C26BA00D9855D /* ExtentionTextField.swift */,
 			);
 			path = "Extention&BaseElements";
 			sourceTree = "<group>";
@@ -294,6 +306,14 @@
 				CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */,
 			);
 			path = FooterView;
+			sourceTree = "<group>";
+		};
+		CF40ACDD2C9B30D100D9855D /* StorageManager */ = {
+			isa = PBXGroup;
+			children = (
+				CF40ACDE2C9B30F200D9855D /* StorageManager.swift */,
+			);
+			path = StorageManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -426,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CF40ACE52C9C259F00D9855D /* AddTaskView.swift in Sources */,
 				CF40ACBA2C99A4AD00D9855D /* NetworkResponseError.swift in Sources */,
 				CF40ACA42C99A46A00D9855D /* EndPointType.swift in Sources */,
 				CF40ACA12C9973EC00D9855D /* MainViewModel.swift in Sources */,
@@ -438,25 +459,28 @@
 				CF40AC662C9971FD00D9855D /* AppDelegate.swift in Sources */,
 				CF40ACAD2C99A47E00D9855D /* ParamEncoding.swift in Sources */,
 				CF40ACB72C99A4AD00D9855D /* HTTPMethod.swift in Sources */,
+				CF40ACE92C9C26BA00D9855D /* ExtentionTextField.swift in Sources */,
 				CF40ACD62C99ED6400D9855D /* FooterCollectionViewFL.swift in Sources */,
 				CF40AC702C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld in Sources */,
 				CF40ACCF2C99B9A700D9855D /* BaseView.swift in Sources */,
 				CF40ACC52C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift in Sources */,
-				CF40ACC72C99B6A100D9855D /* TaskEntity+CoreDataProperties.swift in Sources */,
 				CF40ACDA2C99F36E00D9855D /* BaseButton.swift in Sources */,
 				CF40AC9E2C9973D100D9855D /* TodoModel.swift in Sources */,
 				CF40ACB62C99A4AD00D9855D /* Router.swift in Sources */,
 				CF40ACB82C99A4AD00D9855D /* HTTPTask.swift in Sources */,
 				CF40AC9A2C9973B000D9855D /* MainView.swift in Sources */,
 				CF40ACAB2C99A47E00D9855D /* URLParameterEncoder.swift in Sources */,
-				CF40ACCD2C99B89500D9855D /* ExtentionDate.swift in Sources */,
+				CF40ACCD2C99B89500D9855D /* ExtentionDate&UUID.swift in Sources */,
 				CF40ACD82C99ED8500D9855D /* FooterCollectionCell.swift in Sources */,
 				CF40ACB92C99A4AD00D9855D /* NetworkLogger.swift in Sources */,
 				CF40ACBB2C99A4AD00D9855D /* NetworkRouterProtocol.swift in Sources */,
 				CF40ACD42C99ED2B00D9855D /* FooterCollectionView.swift in Sources */,
+				CF40ACE72C9C267F00D9855D /* BaseTextField.swift in Sources */,
 				CF40ACBE2C99A6E900D9855D /* CoreDataManager.swift in Sources */,
 				CF40ACCA2C99B6EA00D9855D /* HeaderView.swift in Sources */,
 				CF40AC682C9971FD00D9855D /* SceneDelegate.swift in Sources */,
+				CF40ACE32C9C163000D9855D /* TaskEntity+CoreDataProperties.swift in Sources */,
+				CF40ACDF2C9B30F200D9855D /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
