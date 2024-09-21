@@ -13,13 +13,7 @@ class MainViewController: UIViewController {
     var mainView: MainView
     let viewModel = MainViewModel(network: NetworkManager())
     private var cancelabel = Set<AnyCancellable>()
-    
-    var flag: Bool = false {
-        didSet {
-            updateViewConstraints()
-        }
-    }
-    
+        
     var tasks = [ToDo]() {
         didSet {
             mainView.footerView.reloadData()
@@ -74,13 +68,10 @@ class MainViewController: UIViewController {
 
     private func deleteTask(index: IndexPath) {
         viewModel.deleteTask(id: tasks[index.item].id ?? 0)
-        print("delete from bd -----> ")
+        
         tasks.remove(at: index.item)
-        print("delete from array -----> \(tasks)")
-        mainView.footerView.deleteItems(at: [index])
-        
-        
     }
+
     
     @objc func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
         guard let indexPath = mainView.footerView.indexPathForItem(at: gestureRecognizer.location(in: mainView.footerView)) else {
@@ -88,7 +79,7 @@ class MainViewController: UIViewController {
         }
         self.deleteTask(index: indexPath)
     }
-    
+
 }
 
 extension MainViewController: UICollectionViewDelegate {
@@ -105,7 +96,9 @@ extension MainViewController: UICollectionViewDataSource {
         cell.titleLabel.text = tasks[indexPath.item].title
         cell.subTitleLabel.text = tasks[indexPath.item].todo
         cell.dayLabel.text = tasks[indexPath.item].day
-    
+        cell.completed = tasks[indexPath.item].completed
+        cell.delegate = self
+        cell.index = indexPath
         return cell
     }
     
@@ -116,3 +109,12 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
 }
+
+extension MainViewController: DelegateCell {
+    func changeFlag(index: IndexPath?, flag: Bool?) {
+        guard let index = index else { return }
+        guard let flag = flag else { return }
+        viewModel.completedTask(id: tasks[index.item].id!, completed: flag)
+    }
+}
+
