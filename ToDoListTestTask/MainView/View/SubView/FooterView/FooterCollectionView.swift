@@ -27,6 +27,7 @@ final class FooterCollectionView: UICollectionView {
              
              let section = NSCollectionLayoutSection(group: group)
 
+
              return section
          }
          return layout
@@ -52,3 +53,4 @@ final class FooterCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

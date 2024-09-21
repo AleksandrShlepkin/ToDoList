@@ -57,13 +57,11 @@ final class MainViewModel: ObservableObject {
                 case .failure(let error):
                     print("Error: \(error.localizedDescription)")
                 }
-            } receiveValue: { [weak self] result in
-                guard let self else { return }
+            } receiveValue: {  result in
                 var tasks = result.todos
                 
                 for item in tasks {
-                    self.storage.saveTask(todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: Date().dayOfWeek(), date: Date.now)
-                    
+//                    self.storage.saveTask(todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: item.day, date: item.date)
                     let task = ToDo(id: item.id, todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: Date().dayOfWeek(), date: Date.now)
                     
                     tasks.append(task)
@@ -91,13 +89,17 @@ final class MainViewModel: ObservableObject {
     func addTask(id: Int?, todo: String, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
         let task = ToDo(id: id ?? 0, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
         storage.saveTask(todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
-        dataPublisher.todos.append(task)
+        dataPublisher.todos.insert(task, at: 0)
     }
     
     func addTask2(task: ToDo) {
         let task = ToDo(id: task.id, todo: task.todo , completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
         storage.saveTask2(task: task)
         dataPublisher.todos.append(task)
+    }
+    
+    func deleteTask(id: Int) {
+        storage.deleteTask(id: id)
     }
 
 }

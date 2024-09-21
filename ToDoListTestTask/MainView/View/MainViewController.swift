@@ -72,10 +72,27 @@ class MainViewController: UIViewController {
        mainView.closeAddTask()
     }
 
+    private func deleteTask(index: IndexPath) {
+        viewModel.deleteTask(id: tasks[index.item].id ?? 0)
+        print("delete from bd -----> ")
+        tasks.remove(at: index.item)
+        print("delete from array -----> \(tasks)")
+        mainView.footerView.deleteItems(at: [index])
+        
+        
+    }
+    
+    @objc func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+        guard let indexPath = mainView.footerView.indexPathForItem(at: gestureRecognizer.location(in: mainView.footerView)) else {
+            return
+        }
+        self.deleteTask(index: indexPath)
+    }
+    
 }
 
 extension MainViewController: UICollectionViewDelegate {
-    
+
 }
 
 extension MainViewController: UICollectionViewDataSource {
@@ -88,9 +105,14 @@ extension MainViewController: UICollectionViewDataSource {
         cell.titleLabel.text = tasks[indexPath.item].title
         cell.subTitleLabel.text = tasks[indexPath.item].todo
         cell.dayLabel.text = tasks[indexPath.item].day
-        //        cell.timeLabel.text = formatterDate(item: tasks, index: indexPath)
+    
         return cell
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let swipeGesture = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipeGesture(_:)))
+        swipeGesture.direction = .left
+        cell.addGestureRecognizer(swipeGesture)
+    }
     
 }
