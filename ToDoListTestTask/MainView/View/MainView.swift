@@ -8,7 +8,7 @@
 import UIKit
 
 final class MainView: UIView {
-        
+      
     private(set) lazy var footerView: FooterCollectionView = {
         let layout = FooterCollectionViewFL()
         let collection = FooterCollectionView(frame: .zero, collectionViewLayout: layout)
@@ -18,12 +18,8 @@ final class MainView: UIView {
 
     private lazy var headerView = HeaderView()
     private lazy var middleView = MiddleView()
+    private(set) lazy var addTaskView = AddTaskView()
     
-    private var mokView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +40,10 @@ private extension MainView {
         addSubview(headerView)
         addSubview(middleView)
         addSubview(footerView)
+        
         footerView.register(FooterCollectionCell.self, forCellWithReuseIdentifier: FooterCollectionCell.identifier)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addNewTask))
+        headerView.addButton.addGestureRecognizer(tapGesture)
     }
     
     func setupConstraints() {
@@ -62,8 +61,46 @@ private extension MainView {
             footerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             footerView.topAnchor.constraint(equalTo: middleView.bottomAnchor),
             footerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            footerView.bottomAnchor.constraint(equalTo: bottomAnchor)
+            footerView.bottomAnchor.constraint(equalTo: bottomAnchor),
+
             
         ])
+    }
+    
+    
+    @objc func addNewTask(gesture: UIGestureRecognizer) {
+        addSubview(addTaskView)
+        
+        addTaskView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        addTaskView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
+        addTaskView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
+        addTaskView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        headerView.layer.opacity = 0.1
+        middleView.layer.opacity = 0.1
+        footerView.layer.opacity = 0.1
+        backgroundColor = .systemGray3
+    }
+
+}
+
+extension MainView {
+    
+    func closeAddTask() {
+        addTaskView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = false
+        addTaskView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = false
+        addTaskView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = false
+        addTaskView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = false
+        addTaskView.dateTextField.text = ""
+        addTaskView.taskTextField.text = ""
+        addTaskView.titleTextField.text = ""
+        addTaskView.removeFromSuperview()
+        footerView.reloadData()
+        headerView.layer.opacity = 1
+        middleView.layer.opacity = 1
+        footerView.layer.opacity = 1
+        backgroundColor = .systemGray5
+        print("Tap")
+
     }
 }

@@ -2,7 +2,7 @@
 //  TaskEntity+CoreDataProperties.swift
 //  ToDoListTestTask
 //
-//  Created by Александр Коротков on 17.09.2024.
+//  Created by Александр Коротков on 19.09.2024.
 //
 //
 
@@ -13,6 +13,7 @@ import CoreData
 public class TaskEntity: NSManagedObject {
 
 }
+
 extension TaskEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<TaskEntity> {
@@ -23,6 +24,9 @@ extension TaskEntity {
     @NSManaged public var todo: String?
     @NSManaged public var completed: Bool
     @NSManaged public var userID: Int64
+    @NSManaged public var title: String?
+    @NSManaged public var day: String?
+    @NSManaged public var date: Date?
     @NSManaged public var relationship: ToDoListEntity?
 
 }

@@ -9,19 +9,22 @@ import Foundation
 
 // MARK: - ToDoModel
 struct ToDoModel: Codable {
-    let todos: [Todo]
+    var todos: [ToDo]
     let total, skip, limit: Int
 }
 
 // MARK: - Todo
-struct Todo: Codable {
-    let id: Int
+struct ToDo: Codable {
+    let id: Int?
     let todo: String
     let completed: Bool
     let userID: Int
+    let title: String?
+    let day: String?
+    let date: Date?
 
     enum CodingKeys: String, CodingKey {
-        case id, todo, completed
+        case id, todo, completed, title, day, date
         case userID = "userId"
     }
 }
