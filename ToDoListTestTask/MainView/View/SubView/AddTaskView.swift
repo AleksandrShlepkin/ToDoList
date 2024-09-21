@@ -13,7 +13,7 @@ final class AddTaskView: UIView {
         let text = BaseTextField()
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
-        text.placeholder = "Hello"
+        text.placeholder = "Title:"
         return text
     }()
     
@@ -21,7 +21,7 @@ final class AddTaskView: UIView {
         let text = BaseTextField()
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
-        text.placeholder = "Hello"
+        text.placeholder = "Task:"
 
         return text
     }()
@@ -32,7 +32,7 @@ final class AddTaskView: UIView {
                                                         attributes: [NSAttributedString.Key.foregroundColor: UIColor.black.cgColor])
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
-        text.placeholder = "Hello"
+        text.placeholder = "Date:"
 
         text.inputView = datePicker
         
@@ -87,7 +87,7 @@ private extension AddTaskView {
     func setupConstraints() {
         
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 15),
+            titleTextField.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 35),
             titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             
@@ -102,7 +102,7 @@ private extension AddTaskView {
             addTaskButton.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 30),
             addTaskButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
             addTaskButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
-            addTaskButton.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -15),
+            addTaskButton.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -35),
 
         ])
     }

@@ -7,7 +7,18 @@
 
 import UIKit
 
+
+protocol DelegateCell: AnyObject {
+    func changeFlag(index: IndexPath?, flag: Bool?)
+}
+
+
 final class FooterCollectionCell: UICollectionViewCell {
+    
+    weak var delegate: DelegateCell?
+    var index: IndexPath?
+    
+    var completed: Bool?
     
     private(set) lazy var background: UIView = {
         let label = UIView()
@@ -64,6 +75,8 @@ final class FooterCollectionCell: UICollectionViewCell {
         let button = BaseButton()
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemGray5.cgColor
+        let tap = UITapGestureRecognizer(target: self, action: #selector(completedAction))
+        button.addGestureRecognizer(tap)
         return button
     }()
     
@@ -91,11 +104,20 @@ private extension FooterCollectionCell {
         addSubview(subTitleLabel)
         addSubview(separatorView)
         addSubview(dayLabel)
-//        addSubview(timeLabel)
+
         addSubview(doneButton)
         translatesAutoresizingMaskIntoConstraints = false
         background.backgroundColor = .white
         background.layer.cornerRadius = 10
+        
+        if completed == true {
+            doneButton.backgroundColor = .systemBlue
+            print("Complitet: \(completed)")
+        } else {
+            doneButton.backgroundColor = .none
+            print("Complitet: \(completed)")
+
+        }
 
     }
     
@@ -122,10 +144,6 @@ private extension FooterCollectionCell {
             dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
             
-//            timeLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 15),
-//            timeLabel.leadingAnchor.constraint(equalTo: dayLabel.trailingAnchor, constant: 5),
-//            timeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            
             background.topAnchor.constraint(equalTo: topAnchor),
             background.leadingAnchor.constraint(equalTo: leadingAnchor),
             background.trailingAnchor.constraint(equalTo: trailingAnchor),
@@ -133,4 +151,21 @@ private extension FooterCollectionCell {
         ])
         
     }
+    
+    @objc func completedAction() {
+        delegate?.changeFlag(index: index, flag: completed)
+        if completed == true {
+            doneButton.backgroundColor = .systemBlue
+            completed?.toggle()
+        } else {
+            doneButton.backgroundColor = .none
+            completed?.toggle()
+        }
+    
+    }
 }
+
+
+
+
+

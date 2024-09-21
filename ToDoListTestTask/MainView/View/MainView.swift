@@ -44,6 +44,7 @@ private extension MainView {
         footerView.register(FooterCollectionCell.self, forCellWithReuseIdentifier: FooterCollectionCell.identifier)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(addNewTask))
         headerView.addButton.addGestureRecognizer(tapGesture)
+
     }
     
     func setupConstraints() {
@@ -71,26 +72,29 @@ private extension MainView {
     @objc func addNewTask(gesture: UIGestureRecognizer) {
         addSubview(addTaskView)
         
-        addTaskView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        addTaskView.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 150).isActive = true
         addTaskView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = true
         addTaskView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = true
-        addTaskView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
+        addTaskView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -150).isActive = true
+
         headerView.layer.opacity = 0.1
         middleView.layer.opacity = 0.1
         footerView.layer.opacity = 0.1
         backgroundColor = .systemGray3
+        let swipe = UISwipeGestureRecognizer(target: self, action: #selector(closeAddTask))
+        swipe.direction = .down
+        addGestureRecognizer(swipe)
     }
 
 }
 
 extension MainView {
     
-    func closeAddTask() {
-        addTaskView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = false
+   @objc func closeAddTask() {
+        addTaskView.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 150).isActive = false
         addTaskView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10).isActive = false
         addTaskView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10).isActive = false
-        addTaskView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = false
+        addTaskView.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -150).isActive = false
         addTaskView.dateTextField.text = ""
         addTaskView.taskTextField.text = ""
         addTaskView.titleTextField.text = ""
@@ -100,7 +104,5 @@ extension MainView {
         middleView.layer.opacity = 1
         footerView.layer.opacity = 1
         backgroundColor = .systemGray5
-        print("Tap")
-
     }
 }

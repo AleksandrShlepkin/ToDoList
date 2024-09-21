@@ -13,6 +13,8 @@ protocol StorageProtocol: AnyObject {
     func saveTask(todo: String?, completed: Bool, userID: Int, title: String?, day: String?, date: Date?)
     func deleteTask(id: Int)
     func saveTask2(task: ToDo)
+    func fetchTask(id: Int) -> TaskEntity
+    func saveContext()
 }
 
 final class StorageManager: NSObject {
@@ -21,6 +23,10 @@ final class StorageManager: NSObject {
         
     func fetchAllTask() -> [TaskEntity] {
         return context.fetchObjects(TaskEntity.self, context: CoreDataManager.shared.privateManagedObjectContext)
+    }
+    
+    func fetchTask(id: Int) -> TaskEntity {
+        return context.fetchObject(TaskEntity.self, predicate: .integer(.id, id), context: CoreDataManager.shared.privateManagedObjectContext) ?? TaskEntity()
     }
     
     func saveTask(todo: String?, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
@@ -51,6 +57,10 @@ final class StorageManager: NSObject {
         guard let task = context.fetchObject(TaskEntity.self, predicate: .integer(.id, id), context: context.privateManagedObjectContext) else { return }
         context.deleteData(objects: [task])
 
+    }
+    
+    func saveContext() {
+        context.saveData()
     }
     
 }

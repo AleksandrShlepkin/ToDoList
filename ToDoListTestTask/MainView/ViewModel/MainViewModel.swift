@@ -61,7 +61,7 @@ final class MainViewModel: ObservableObject {
                 var tasks = result.todos
                 
                 for item in tasks {
-//                    self.storage.saveTask(todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: item.day, date: item.date)
+
                     let task = ToDo(id: item.id, todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: Date().dayOfWeek(), date: Date.now)
                     
                     tasks.append(task)
@@ -100,6 +100,12 @@ final class MainViewModel: ObservableObject {
     
     func deleteTask(id: Int) {
         storage.deleteTask(id: id)
+    }
+    
+    func completedTask(id: Int, completed: Bool) {
+       var task = storage.fetchTask(id: id)
+        task.completed = completed
+        storage.saveContext()
     }
 
 }
