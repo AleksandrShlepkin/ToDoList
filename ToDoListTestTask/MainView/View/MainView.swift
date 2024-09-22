@@ -64,7 +64,13 @@ private extension MainView {
         ])
     }
     
-    @objc func addNewTask(gesture: UIGestureRecognizer) {
+
+}
+
+extension MainView {
+    
+    
+    @objc func addNewTask() {
         addSubview(addTaskView)
         
         addTaskView.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 150).isActive = true
@@ -80,9 +86,6 @@ private extension MainView {
         swipe.direction = .down
         addGestureRecognizer(swipe)
     }
-}
-
-extension MainView {
     
    @objc func closeAddTask() {
         addTaskView.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 150).isActive = false

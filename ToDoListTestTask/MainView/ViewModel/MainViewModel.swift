@@ -14,6 +14,11 @@ public enum Status {
     case closed
 }
 
+public enum AddTask {
+    case create
+    case update
+}
+
 final class MainViewModel: ObservableObject {
     
     
@@ -103,12 +108,24 @@ final class MainViewModel: ObservableObject {
         
     }
     
-    func addTask(id: Int,  todo: String, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
+    func addTask(action: AddTask ,id: Int,  todo: String, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
         
-        let task = ToDo(id: id, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
-        dataPublisher.todos.insert(task, at: 0)
-        storage.saveTask(id: id, todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
-        print("Data: \(dataPublisher.todos)")
+        switch action {
+        case .create:
+            let task = ToDo(id: id, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
+            dataPublisher.todos.insert(task, at: 0)
+            storage.saveTask(id: id, todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
+        case .update:
+            let task = storage.fetchTask(id: id)
+            task?.title = title
+            task?.todo = todo
+            task?.day = day
+            storage.saveContext()
+        }
+//        let task = ToDo(id: id, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
+//        dataPublisher.todos.insert(task, at: 0)
+//        storage.saveTask(id: id, todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
+
     }
     
     
@@ -117,12 +134,27 @@ final class MainViewModel: ObservableObject {
     }
     
     func completedTask(id: Int, completed: Bool) {
-        guard let task = storage.fetchTask(id: id) else { return }
-        var newArray = dataPublisher
-        newArray.todos.filter{ $0.id == id }.first?.completed = completed
-
+        guard var task = storage.fetchTask(id: id) else { return }
+        task.completed = completed
+        let newArray = dataPublisher
+        let array = newArray.todos.map { element in
+            var elem = element
+            if elem.id == id {
+                elem.completed = completed
+            }
+            return elem
+        }
+        self.dataPublisher.todos = array
         storage.saveContext()
     }
     
+    
+    func updateTask(id: Int ,todo: String, title: String, day: String) {
+        let task = storage.fetchTask(id: id)
+        task?.title = title
+        task?.todo = todo
+        task?.day = day
+        storage.saveContext()
+    }
     
 }

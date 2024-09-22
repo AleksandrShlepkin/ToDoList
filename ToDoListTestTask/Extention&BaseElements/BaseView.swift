@@ -68,17 +68,17 @@ private extension BaseView {
             subLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            mainLabel.trailingAnchor.constraint(equalTo: subLabel.leadingAnchor, constant: -10),
+            mainLabel.trailingAnchor.constraint(equalTo: subLabel.leadingAnchor, constant: -5),
             mainLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
             
-            backgroundLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            backgroundLabel.topAnchor.constraint(equalTo: topAnchor),
             backgroundLabel.trailingAnchor.constraint(equalTo: subLabel.trailingAnchor, constant: 5),
-            backgroundLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            backgroundLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
             backgroundLabel.leadingAnchor.constraint(equalTo: subLabel.leadingAnchor, constant: -5),
             
             separatorView.leadingAnchor.constraint(equalTo: subLabel.trailingAnchor, constant: 15),
             separatorView.centerYAnchor.constraint(equalTo: subLabel.centerYAnchor),
-            separatorView.heightAnchor.constraint(equalTo: subLabel.widthAnchor, constant: -2),
+            separatorView.heightAnchor.constraint(equalTo: subLabel.widthAnchor),
             separatorView.widthAnchor.constraint(equalToConstant: 2)
         ])
     }

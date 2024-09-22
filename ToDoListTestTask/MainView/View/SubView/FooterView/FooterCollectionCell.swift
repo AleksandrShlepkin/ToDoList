@@ -158,15 +158,15 @@ private extension FooterCollectionCell {
         ])
     }
     
+    
     @objc func completedAction() {
+        completed?.toggle()
         delegate?.changeFlag(index: index, flag: completed)
         if completed == true {
             doneButton.backgroundColor = .systemBlue
-            completed?.toggle()
+            
         } else {
             doneButton.backgroundColor = .none
-            completed?.toggle()
         }
-    
     }
 }

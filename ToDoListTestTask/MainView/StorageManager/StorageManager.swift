@@ -52,6 +52,7 @@ final class StorageManager: NSObject {
         context.saveData()
     }
     
+    
 }
 
 extension StorageManager: StorageProtocol {  }

@@ -12,7 +12,7 @@ final class MiddleView: UIView {
     private lazy var stackView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 15
+        stack.spacing = 5
         stack.distribution = .fillEqually
         stack.translatesAutoresizingMaskIntoConstraints = false
         return stack
@@ -21,7 +21,7 @@ final class MiddleView: UIView {
     private(set) lazy var allTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.font = UIFont.systemFont(ofSize: 15)
         button.subLabel.textColor = .black
         button.separatorView.backgroundColor = .gray
         button.mainLabel.text = "All"
@@ -34,9 +34,9 @@ final class MiddleView: UIView {
     private(set) lazy var openedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.font = UIFont.systemFont(ofSize: 15)
         button.subLabel.textColor = .systemGray
-        button.layer.cornerRadius = 5
+        
         button.mainLabel.text = "Open"
         button.mainLabel.layer.cornerRadius = 20
         button.mainLabel.font = UIFont.systemFont(ofSize: 15)
@@ -47,9 +47,9 @@ final class MiddleView: UIView {
     private(set) lazy var closedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.font = UIFont.systemFont(ofSize: 15)
         button.subLabel.textColor = .systemGray
-        button.layer.cornerRadius = 5
+        
         button.mainLabel.text = "Closed"
         button.mainLabel.layer.cornerRadius = 20
         button.mainLabel.font = UIFont.systemFont(ofSize: 15)
@@ -118,7 +118,9 @@ extension MiddleView {
             closedTaskButton.backgroundLabel.backgroundColor = .systemGray5
             allTaskButton.backgroundLabel.backgroundColor = .systemBlue
             openedTaskButton.backgroundLabel.backgroundColor = .systemGray5
-            
+            allTaskButton.separatorView.backgroundColor = .systemGray
+            openedTaskButton.separatorView.backgroundColor = .none
+            closedTaskButton.separatorView.backgroundColor = .none
             closedTaskButton.subLabel.textColor = .systemGray
             allTaskButton.subLabel.textColor = .black
             openedTaskButton.subLabel.textColor = .systemGray
@@ -126,6 +128,9 @@ extension MiddleView {
             closedTaskButton.backgroundLabel.backgroundColor = .systemGray5
             allTaskButton.backgroundLabel.backgroundColor = .systemGray5
             openedTaskButton.backgroundLabel.backgroundColor = .systemBlue
+            allTaskButton.separatorView.backgroundColor = .none
+            openedTaskButton.separatorView.backgroundColor = .systemGray
+            closedTaskButton.separatorView.backgroundColor = .none
             
             closedTaskButton.subLabel.textColor = .systemGray
             allTaskButton.subLabel.textColor = .systemGray
@@ -134,6 +139,9 @@ extension MiddleView {
             closedTaskButton.backgroundLabel.backgroundColor = .systemBlue
             allTaskButton.backgroundLabel.backgroundColor = .systemGray5
             openedTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            allTaskButton.separatorView.backgroundColor = .none
+            openedTaskButton.separatorView.backgroundColor = .none
+            closedTaskButton.separatorView.backgroundColor = .systemGray
             
             closedTaskButton.subLabel.textColor = .black
             allTaskButton.subLabel.textColor = .systemGray

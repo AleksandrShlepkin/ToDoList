@@ -8,6 +8,8 @@
 import UIKit
 import Combine
 
+
+
 class MainViewController: UIViewController {
     
     var mainView: MainView
@@ -15,11 +17,11 @@ class MainViewController: UIViewController {
     private var cancelabel = Set<AnyCancellable>()
     var flag: Bool = false
     var status: Status = .all
-    
+    var addAction: AddTask = .create
     
     var tasks = [ToDo]() {
         didSet {
-            
+            viewCountTask()
         }
     }
     
@@ -81,6 +83,13 @@ extension MainViewController: UICollectionViewDataSource {
         cell.addGestureRecognizer(swipeGesture)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let cell = collectionView.cellForItem(at: indexPath) as? FooterCollectionCell
+        let tap = UITapGestureRecognizer(target: self, action: #selector(openRemakeView))
+        print("Index: \(indexPath.item)")
+        cell?.addGestureRecognizer(tap)
+    }
+    
 }
 
 extension MainViewController: DelegateCell {
@@ -101,13 +110,12 @@ extension MainViewController {
     }
     
     
-    @objc func saveNewTask() {
-        guard let title = mainView.addTaskView.titleTextField.text else { return }
-        guard let taskText = mainView.addTaskView.taskTextField.text else { return }
-        let date = mainView.addTaskView.dateTextField.text
-        let id = Int.random(in: 1...999999999)
-        viewModel.addTask(id: id , todo: taskText, completed: false, userID: 1, title: title, day: date, date: Date.now)
-        mainView.closeAddTask()
+    @objc func saveNewTask(_ gesture: UITapGestureRecognizer) {
+        guard let indexPath = mainView.footerView.indexPathForItem(at: gesture.location(in: mainView.footerView)) else {
+            return
+        }
+        remakeTask(index: indexPath)
+
     }
     
     private func deleteTask(index: IndexPath) {
@@ -126,6 +134,13 @@ extension MainViewController {
         self.deleteTask(index: indexPath)
     }
     
+//    @objc func handleTapGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
+//        guard let indexPath = mainView.footerView.indexPathForItem(at: gestureRecognizer.location(in: mainView.footerView)) else {
+//            return
+//        }
+//        self.remakeTask(index: indexPath)
+//    }
+    
     func addGesture() {
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(saveNewTask))
@@ -139,6 +154,8 @@ extension MainViewController {
         
         let tapAll = UITapGestureRecognizer(target: self, action: #selector(showAllTasks))
         mainView.middleView.allTaskButton.addGestureRecognizer(tapAll)
+        
+        
     }
 }
 
@@ -174,5 +191,28 @@ extension MainViewController {
         viewModel.fetch(status: status)
         mainView.middleView.switchTask(status: status)
         mainView.footerView.reloadData()
+    }
+    
+    func remakeTask(index: IndexPath?) {
+        switch addAction{
+        case .create:
+            guard let title = mainView.addTaskView.titleTextField.text else { return }
+            guard let taskText = mainView.addTaskView.taskTextField.text else { return }
+            let date = mainView.addTaskView.dateTextField.text
+            let id = Int.random(in: 1...999999999)
+            viewModel.addTask(action: .create, id: id , todo: taskText, completed: false, userID: 1, title: title, day: date, date: Date.now)
+            mainView.closeAddTask()
+        case .update:
+            guard let title = mainView.addTaskView.titleTextField.text else { return }
+            guard let taskText = mainView.addTaskView.taskTextField.text else { return }
+            let date = mainView.addTaskView.dateTextField.text
+            viewModel.addTask(action: .update, id: tasks[index!.item].id ?? 0 , todo: taskText, completed: false, userID: 1, title: title, day: date, date: Date.now)
+            mainView.closeAddTask()
+        }
+    }
+    
+    @objc func openRemakeView() {
+        mainView.addNewTask()
+        addAction = .update
     }
 }
