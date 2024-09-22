@@ -18,7 +18,7 @@ final class FooterCollectionView: UICollectionView {
              let item = NSCollectionLayoutItem(layoutSize: itemSize)
              item.contentInsets = .init(top: 5, leading: 5, bottom: 5, trailing: 5)
              
-             let groupHeight = layoutEnvironment.traitCollection.verticalSizeClass == .compact ? NSCollectionLayoutDimension.fractionalHeight(0.2) : NSCollectionLayoutDimension.estimated(180)
+             let groupHeight = layoutEnvironment.traitCollection.verticalSizeClass == .compact ? NSCollectionLayoutDimension.fractionalHeight(0.2) : NSCollectionLayoutDimension.estimated(140)
                           
              let groupSize = NSCollectionLayoutSize(
                  widthDimension: .fractionalWidth(1.0),
@@ -30,6 +30,8 @@ final class FooterCollectionView: UICollectionView {
 
              return section
          }
+        
+        
          return layout
      }
      
@@ -53,4 +55,5 @@ final class FooterCollectionView: UICollectionView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 

@@ -17,7 +17,7 @@ struct ToDoModel: Codable {
 struct ToDo: Codable {
     let id: Int?
     let todo: String
-    let completed: Bool
+    var completed: Bool
     let userID: Int
     let title: String?
     let day: String?

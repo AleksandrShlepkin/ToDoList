@@ -8,21 +8,27 @@
 import Foundation
 import Combine
 
-protocol MainViewModelProtocol: AnyObject {
-    
-    func getData(complition: @escaping (ToDoModel) -> Void)
-    var dataPublisher: ToDoModel { get }
-    var viewData: Published<ToDoModel>.Publisher {get set}
+public enum Status {
+    case all
+    case open
+    case closed
+}
+
+public enum AddTask {
+    case create
+    case update
 }
 
 final class MainViewModel: ObservableObject {
+    
+    
     
     private(set) var network: NetworkProtocol
     private let storage: StorageProtocol = StorageManager()
     private var fetchTask = [TaskEntity]()
     private var cancelable = Set<AnyCancellable>()
     @Published var dataPublisher: ToDoModel = ToDoModel(todos: [], total: 0, skip: 0, limit: 0)
-
+    
     lazy var viewData: Published<ToDoModel>.Publisher = { [unowned self] in
         self.$dataPublisher
     }()
@@ -31,7 +37,8 @@ final class MainViewModel: ObservableObject {
         self.network = network
     }
     
-    func fetch() {
+    func fetch(status: Status) {
+        
         self.fetchTask = storage.fetchAllTask()
         if fetchTask.isEmpty {
             getDataForNetwork { [weak self] result in
@@ -39,15 +46,30 @@ final class MainViewModel: ObservableObject {
                 print("Data from network")
             }
         } else {
-            getDataFromBD(arrayTask: fetchTask) { [weak self] result in
-                self?.dataPublisher.todos = result
-                print("Data from BD")
+            
+            switch status {
+            case .all:
+                getDataFromBD(arrayTask: fetchTask) { [weak self] result in
+                    self?.dataPublisher.todos = result
+                    print("Data from BD all")
+                }
+            case .open:
+                getDataFromBD(arrayTask: fetchTask) { [weak self] result in
+                    self?.dataPublisher.todos = result.filter { $0.completed == false}
+                    print("Data from BD open ")
+                }
+            case .closed:
+                getDataFromBD(arrayTask: fetchTask) { [weak self] result in
+                    self?.dataPublisher.todos = result.filter { $0.completed == true }
+                    print("Data from BD closed")
+                }
             }
+            
         }
-
+        
     }
     
-   private func getDataForNetwork(complition: @escaping ([ToDo]) -> Void) {
+    private func getDataForNetwork(complition: @escaping ([ToDo]) -> Void) {
         network.getDataWithGet(.getData, responseType: ToDoModel.self)
             .receive(on: DispatchQueue.main)
             .sink { complition in
@@ -61,12 +83,12 @@ final class MainViewModel: ObservableObject {
                 var tasks = result.todos
                 
                 for item in tasks {
-
+                    
                     let task = ToDo(id: item.id, todo: item.todo, completed: item.completed, userID: item.userID, title: item.title, day: Date().dayOfWeek(), date: Date.now)
                     
                     tasks.append(task)
                 }
-               
+                
                 complition(tasks)
             }
             .store(in: &cancelable)
@@ -77,7 +99,7 @@ final class MainViewModel: ObservableObject {
         var array = [ToDo]()
         
         for item in arrayTask {
-            let task = ToDo(id: Int(item.id), todo: item.todo ?? "", completed: item.completed, userID: Int(item.userID), title: item.title, day: item.day, date: item.date)
+            let task = ToDo(id: Int(item.taskID), todo: item.todo ?? "", completed: item.completed, userID: Int(item.userID), title: item.title, day: item.day, date: item.date)
             array.append(task)
         }
         DispatchQueue.main.async {
@@ -86,26 +108,53 @@ final class MainViewModel: ObservableObject {
         
     }
     
-    func addTask(id: Int?, todo: String, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
-        let task = ToDo(id: id ?? 0, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
-        storage.saveTask(todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
-        dataPublisher.todos.insert(task, at: 0)
+    func addTask(action: AddTask ,id: Int,  todo: String, completed: Bool, userID: Int, title: String?, day: String?, date: Date?) {
+        
+        switch action {
+        case .create:
+            let task = ToDo(id: id, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
+            dataPublisher.todos.insert(task, at: 0)
+            storage.saveTask(id: id, todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
+        case .update:
+            let task = storage.fetchTask(id: id)
+            task?.title = title
+            task?.todo = todo
+            task?.day = day
+            storage.saveContext()
+        }
+//        let task = ToDo(id: id, todo: todo , completed: completed, userID: userID, title: title, day: day, date: date)
+//        dataPublisher.todos.insert(task, at: 0)
+//        storage.saveTask(id: id, todo: task.todo, completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
+
     }
     
-    func addTask2(task: ToDo) {
-        let task = ToDo(id: task.id, todo: task.todo , completed: task.completed, userID: task.userID, title: task.title, day: task.day, date: task.date)
-        storage.saveTask2(task: task)
-        dataPublisher.todos.append(task)
-    }
     
     func deleteTask(id: Int) {
         storage.deleteTask(id: id)
     }
     
     func completedTask(id: Int, completed: Bool) {
-       var task = storage.fetchTask(id: id)
+        guard var task = storage.fetchTask(id: id) else { return }
         task.completed = completed
+        let newArray = dataPublisher
+        let array = newArray.todos.map { element in
+            var elem = element
+            if elem.id == id {
+                elem.completed = completed
+            }
+            return elem
+        }
+        self.dataPublisher.todos = array
         storage.saveContext()
     }
-
+    
+    
+    func updateTask(id: Int ,todo: String, title: String, day: String) {
+        let task = storage.fetchTask(id: id)
+        task?.title = title
+        task?.todo = todo
+        task?.day = day
+        storage.saveContext()
+    }
+    
 }

@@ -53,8 +53,8 @@ final class AddTaskView: UIView {
         button.backgroundColor = .init(red: 0, green: 0, blue: 1, alpha: 0.1)
         button.mainLabel.textColor = .systemBlue
         button.mainLabel.text = "New Task"
-        button.subLabel.text = "+"
-        button.subLabel.textColor = .systemBlue
+        button.mainLabel.text = "+"
+        button.mainLabel.textColor = .systemBlue
         button.layer.cornerRadius = 15
         
         return button

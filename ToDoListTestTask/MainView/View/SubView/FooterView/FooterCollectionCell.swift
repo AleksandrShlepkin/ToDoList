@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 protocol DelegateCell: AnyObject {
     func changeFlag(index: IndexPath?, flag: Bool?)
 }
@@ -17,14 +16,14 @@ final class FooterCollectionCell: UICollectionViewCell {
     
     weak var delegate: DelegateCell?
     var index: IndexPath?
-    
     var completed: Bool?
     
-    private(set) lazy var background: UIView = {
-        let label = UIView()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private lazy var taskView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
+
     
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -73,6 +72,7 @@ final class FooterCollectionCell: UICollectionViewCell {
     
     private(set) lazy var doneButton: BaseButton = {
         let button = BaseButton()
+        button.layer.cornerRadius = 10
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.systemGray5.cgColor
         let tap = UITapGestureRecognizer(target: self, action: #selector(completedAction))
@@ -84,6 +84,7 @@ final class FooterCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
         setupConstraints()
+        
     }
     
     required init?(coder: NSCoder) {
@@ -91,81 +92,81 @@ final class FooterCollectionCell: UICollectionViewCell {
     }
     
     override func layoutSubviews() {
-        doneButton.layer.cornerRadius = doneButton.frame.height / 2
-        updateFocusIfNeeded()
     }
+    
+    func setupViewData(_ task: ToDo) {
+           titleLabel.text = task.title
+           subTitleLabel.text = task.todo
+           dayLabel.text = task.day
+           completed = task.completed
+           
+        if completed == true {
+            doneButton.backgroundColor = .systemBlue
+        } else {
+            doneButton.backgroundColor = .none
+        }
+       }
+    
 }
 
 private extension FooterCollectionCell {
     
     func setupView() {
-        addSubview(background)
-        addSubview(titleLabel)
-        addSubview(subTitleLabel)
+        layer.cornerRadius = 10
+        backgroundColor = .white
+        addSubview(taskView)
+        taskView.addSubview(titleLabel)
+        taskView.addSubview(subTitleLabel)
         addSubview(separatorView)
         addSubview(dayLabel)
 
         addSubview(doneButton)
-        translatesAutoresizingMaskIntoConstraints = false
-        background.backgroundColor = .white
-        background.layer.cornerRadius = 10
-        
-        if completed == true {
-            doneButton.backgroundColor = .systemBlue
-            print("Complitet: \(completed)")
-        } else {
-            doneButton.backgroundColor = .none
-            print("Complitet: \(completed)")
 
-        }
+
 
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            titleLabel.topAnchor.constraint(lessThanOrEqualTo: topAnchor, constant: 10),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -100),
-
-            subTitleLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 5),
-            subTitleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            subTitleLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor, constant: -100),
+            taskView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            taskView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            taskView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -10),
             
-            doneButton.centerYAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            doneButton.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: -25),
-            doneButton.leadingAnchor.constraint(greaterThanOrEqualTo: subTitleLabel.trailingAnchor, constant: 30),
+            titleLabel.topAnchor.constraint(equalTo: taskView.topAnchor),
+            titleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            
+            subTitleLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 5),
+            subTitleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
+            subTitleLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -10),
+            subTitleLabel.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
+            
+            doneButton.centerYAnchor.constraint(equalTo: taskView.centerYAnchor),
+            doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            doneButton.leadingAnchor.constraint(greaterThanOrEqualTo: taskView.trailingAnchor, constant: 10),
+            doneButton.widthAnchor.constraint(equalToConstant: 20),
+            doneButton.heightAnchor.constraint(equalTo: doneButton.widthAnchor, multiplier: 1 / 1),
 
-            separatorView.topAnchor.constraint(equalTo: subTitleLabel.bottomAnchor, constant: 15),
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             separatorView.heightAnchor.constraint(equalToConstant: 2),
             
-            dayLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 15),
+            dayLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
             dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15),
-            
-            background.topAnchor.constraint(equalTo: topAnchor),
-            background.leadingAnchor.constraint(equalTo: leadingAnchor),
-            background.trailingAnchor.constraint(equalTo: trailingAnchor),
-            background.bottomAnchor.constraint(equalTo: bottomAnchor),
+            dayLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
         ])
-        
     }
     
+    
     @objc func completedAction() {
+        completed?.toggle()
         delegate?.changeFlag(index: index, flag: completed)
         if completed == true {
             doneButton.backgroundColor = .systemBlue
-            completed?.toggle()
+            
         } else {
             doneButton.backgroundColor = .none
-            completed?.toggle()
         }
-    
     }
 }
-
-
-
-
-
