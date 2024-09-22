@@ -21,47 +21,39 @@ final class MiddleView: UIView {
     private(set) lazy var allTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.text = "40"
+        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.textColor = .black
+        button.separatorView.backgroundColor = .gray
+        button.mainLabel.text = "All"
         button.mainLabel.font = UIFont.systemFont(ofSize: 15)
         button.mainLabel.textColor = .systemGray
-        button.mainLabel.backgroundColor = .darkGray
-        
-        button.separatorView.backgroundColor = .gray
-        
-        button.subLabel.text = "All"
-        button.subLabel.layer.cornerRadius = 20
-        button.subLabel.font = UIFont.systemFont(ofSize: 15)
-        button.subLabel.textColor = .systemGray
+        button.backgroundLabel.backgroundColor = .systemBlue
         return button
     }()
     
     private(set) lazy var openedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.text = "35"
+        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.textColor = .systemGray
+        button.layer.cornerRadius = 5
+        button.mainLabel.text = "Open"
+        button.mainLabel.layer.cornerRadius = 20
         button.mainLabel.font = UIFont.systemFont(ofSize: 15)
         button.mainLabel.textColor = .systemGray
-        
-
-        button.subLabel.text = "Open"
-        button.subLabel.layer.cornerRadius = 20
-        button.subLabel.font = UIFont.systemFont(ofSize: 15)
-        button.subLabel.textColor = .systemGray
         return button
     }()
     
     private(set) lazy var closedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.mainLabel.text = "15"
+        button.mainLabel.font = UIFont.systemFont(ofSize: 15)
+        button.subLabel.textColor = .systemGray
+        button.layer.cornerRadius = 5
+        button.mainLabel.text = "Closed"
+        button.mainLabel.layer.cornerRadius = 20
         button.mainLabel.font = UIFont.systemFont(ofSize: 15)
         button.mainLabel.textColor = .systemGray
-        
-
-        button.subLabel.text = "Closed"
-        button.subLabel.layer.cornerRadius = 20
-        button.subLabel.font = UIFont.systemFont(ofSize: 15)
-        button.subLabel.textColor = .systemGray
         return button
     }()
     
@@ -104,7 +96,7 @@ private extension MiddleView {
             allTaskButton.topAnchor.constraint(equalTo: stackView.topAnchor),
             allTaskButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             allTaskButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-
+            
             openedTaskButton.leadingAnchor.constraint(equalTo: allTaskButton.trailingAnchor, constant: 15),
             openedTaskButton.topAnchor.constraint(equalTo: stackView.topAnchor),
             openedTaskButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
@@ -114,5 +106,38 @@ private extension MiddleView {
             closedTaskButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor)
             
         ])
+    }
+    
+}
+
+extension MiddleView {
+    
+    func switchTask(status: Status) {
+        switch status {
+        case .all:
+            closedTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            allTaskButton.backgroundLabel.backgroundColor = .systemBlue
+            openedTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            
+            closedTaskButton.subLabel.textColor = .systemGray
+            allTaskButton.subLabel.textColor = .black
+            openedTaskButton.subLabel.textColor = .systemGray
+        case .open:
+            closedTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            allTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            openedTaskButton.backgroundLabel.backgroundColor = .systemBlue
+            
+            closedTaskButton.subLabel.textColor = .systemGray
+            allTaskButton.subLabel.textColor = .systemGray
+            openedTaskButton.subLabel.textColor = .black
+        case .closed:
+            closedTaskButton.backgroundLabel.backgroundColor = .systemBlue
+            allTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            openedTaskButton.backgroundLabel.backgroundColor = .systemGray5
+            
+            closedTaskButton.subLabel.textColor = .black
+            allTaskButton.subLabel.textColor = .systemGray
+            openedTaskButton.subLabel.textColor = .systemGray
+        }
     }
 }

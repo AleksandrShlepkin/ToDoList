@@ -10,16 +10,23 @@ import UIKit
 
 final class BaseView: UIView {
     
+    private(set) lazy var subLabel: UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     private(set) lazy var mainLabel: UILabel = {
        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    private(set) lazy var subLabel: UILabel = {
-       let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+    private(set) lazy var backgroundLabel: UIView = {
+       let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.cornerRadius = 10
+        return view
     }()
     
     private(set) lazy var separatorView: UIView = {
@@ -47,6 +54,7 @@ private extension BaseView {
     
     func setupView() {
         translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundLabel)
         addSubview(mainLabel)
         addSubview(subLabel)
         addSubview(separatorView)
@@ -55,17 +63,22 @@ private extension BaseView {
     func setupConstraints() {
         NSLayoutConstraint.activate([
         
-            mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            mainLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
-            mainLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
-            
             subLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
-            subLabel.trailingAnchor.constraint(equalTo: mainLabel.leadingAnchor, constant: -5),
             subLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            subLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             
-            separatorView.leadingAnchor.constraint(equalTo: mainLabel.trailingAnchor, constant: 15),
-            separatorView.centerYAnchor.constraint(equalTo: mainLabel.centerYAnchor),
-            separatorView.heightAnchor.constraint(equalTo: mainLabel.widthAnchor, constant: -2),
+            mainLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            mainLabel.trailingAnchor.constraint(equalTo: subLabel.leadingAnchor, constant: -10),
+            mainLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            
+            backgroundLabel.topAnchor.constraint(equalTo: topAnchor, constant: 5),
+            backgroundLabel.trailingAnchor.constraint(equalTo: subLabel.trailingAnchor, constant: 5),
+            backgroundLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -5),
+            backgroundLabel.leadingAnchor.constraint(equalTo: subLabel.leadingAnchor, constant: -5),
+            
+            separatorView.leadingAnchor.constraint(equalTo: subLabel.trailingAnchor, constant: 15),
+            separatorView.centerYAnchor.constraint(equalTo: subLabel.centerYAnchor),
+            separatorView.heightAnchor.constraint(equalTo: subLabel.widthAnchor, constant: -2),
             separatorView.widthAnchor.constraint(equalToConstant: 2)
         ])
     }

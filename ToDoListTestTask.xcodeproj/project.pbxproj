@@ -38,15 +38,14 @@
 		CF40ACCF2C99B9A700D9855D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACCE2C99B9A700D9855D /* BaseView.swift */; };
 		CF40ACD12C99CF9F00D9855D /* MiddleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD02C99CF9F00D9855D /* MiddleView.swift */; };
 		CF40ACD42C99ED2B00D9855D /* FooterCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD32C99ED2B00D9855D /* FooterCollectionView.swift */; };
-		CF40ACD62C99ED6400D9855D /* FooterCollectionViewFL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD52C99ED6400D9855D /* FooterCollectionViewFL.swift */; };
 		CF40ACD82C99ED8500D9855D /* FooterCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */; };
 		CF40ACDA2C99F36E00D9855D /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACD92C99F36E00D9855D /* BaseButton.swift */; };
 		CF40ACDC2C9AC6CB00D9855D /* ExtentionCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */; };
 		CF40ACDF2C9B30F200D9855D /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACDE2C9B30F200D9855D /* StorageManager.swift */; };
-		CF40ACE32C9C163000D9855D /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */; };
 		CF40ACE52C9C259F00D9855D /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE42C9C259F00D9855D /* AddTaskView.swift */; };
 		CF40ACE72C9C267F00D9855D /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE62C9C267F00D9855D /* BaseTextField.swift */; };
 		CF40ACE92C9C26BA00D9855D /* ExtentionTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF40ACE82C9C26BA00D9855D /* ExtentionTextField.swift */; };
+		CFDB082E2CA018AF00668E65 /* TaskEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFDB082C2CA018AF00668E65 /* TaskEntity+CoreDataProperties.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,15 +101,14 @@
 		CF40ACCE2C99B9A700D9855D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		CF40ACD02C99CF9F00D9855D /* MiddleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddleView.swift; sourceTree = "<group>"; };
 		CF40ACD32C99ED2B00D9855D /* FooterCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionView.swift; sourceTree = "<group>"; };
-		CF40ACD52C99ED6400D9855D /* FooterCollectionViewFL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionViewFL.swift; sourceTree = "<group>"; };
 		CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterCollectionCell.swift; sourceTree = "<group>"; };
 		CF40ACD92C99F36E00D9855D /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
 		CF40ACDB2C9AC6CB00D9855D /* ExtentionCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionCollectionCell.swift; sourceTree = "<group>"; };
 		CF40ACDE2C9B30F200D9855D /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
-		CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		CF40ACE42C9C259F00D9855D /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
 		CF40ACE62C9C267F00D9855D /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
 		CF40ACE82C9C26BA00D9855D /* ExtentionTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtentionTextField.swift; sourceTree = "<group>"; };
+		CFDB082C2CA018AF00668E65 /* TaskEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TaskEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -268,7 +266,7 @@
 		CF40ACBF2C99B67D00D9855D /* CoreDataEntity */ = {
 			isa = PBXGroup;
 			children = (
-				CF40ACE12C9C163000D9855D /* TaskEntity+CoreDataProperties.swift */,
+				CFDB082C2CA018AF00668E65 /* TaskEntity+CoreDataProperties.swift */,
 				CF40ACC12C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift */,
 			);
 			path = CoreDataEntity;
@@ -302,7 +300,6 @@
 			isa = PBXGroup;
 			children = (
 				CF40ACD32C99ED2B00D9855D /* FooterCollectionView.swift */,
-				CF40ACD52C99ED6400D9855D /* FooterCollectionViewFL.swift */,
 				CF40ACD72C99ED8500D9855D /* FooterCollectionCell.swift */,
 			);
 			path = FooterView;
@@ -458,9 +455,9 @@
 				CF40ACAC2C99A47E00D9855D /* NetworkManager.swift in Sources */,
 				CF40AC662C9971FD00D9855D /* AppDelegate.swift in Sources */,
 				CF40ACAD2C99A47E00D9855D /* ParamEncoding.swift in Sources */,
+				CFDB082E2CA018AF00668E65 /* TaskEntity+CoreDataProperties.swift in Sources */,
 				CF40ACB72C99A4AD00D9855D /* HTTPMethod.swift in Sources */,
 				CF40ACE92C9C26BA00D9855D /* ExtentionTextField.swift in Sources */,
-				CF40ACD62C99ED6400D9855D /* FooterCollectionViewFL.swift in Sources */,
 				CF40AC702C9971FD00D9855D /* ToDoListTestTask.xcdatamodeld in Sources */,
 				CF40ACCF2C99B9A700D9855D /* BaseView.swift in Sources */,
 				CF40ACC52C99B6A100D9855D /* ToDoListEntity+CoreDataProperties.swift in Sources */,
@@ -479,7 +476,6 @@
 				CF40ACBE2C99A6E900D9855D /* CoreDataManager.swift in Sources */,
 				CF40ACCA2C99B6EA00D9855D /* HeaderView.swift in Sources */,
 				CF40AC682C9971FD00D9855D /* SceneDelegate.swift in Sources */,
-				CF40ACE32C9C163000D9855D /* TaskEntity+CoreDataProperties.swift in Sources */,
 				CF40ACDF2C9B30F200D9855D /* StorageManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

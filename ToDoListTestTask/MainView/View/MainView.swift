@@ -10,14 +10,13 @@ import UIKit
 final class MainView: UIView {
       
     private(set) lazy var footerView: FooterCollectionView = {
-        let layout = FooterCollectionViewFL()
+        let layout = UICollectionViewFlowLayout()
         let collection = FooterCollectionView(frame: .zero, collectionViewLayout: layout)
-        
         return collection
     }()
 
     private lazy var headerView = HeaderView()
-    private lazy var middleView = MiddleView()
+    private(set) lazy var middleView = MiddleView()
     private(set) lazy var addTaskView = AddTaskView()
     
     
@@ -31,7 +30,6 @@ final class MainView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 }
-
 
 private extension MainView {
     
@@ -63,11 +61,8 @@ private extension MainView {
             footerView.topAnchor.constraint(equalTo: middleView.bottomAnchor),
             footerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             footerView.bottomAnchor.constraint(equalTo: bottomAnchor),
-
-            
         ])
     }
-    
     
     @objc func addNewTask(gesture: UIGestureRecognizer) {
         addSubview(addTaskView)
@@ -85,7 +80,6 @@ private extension MainView {
         swipe.direction = .down
         addGestureRecognizer(swipe)
     }
-
 }
 
 extension MainView {
@@ -105,4 +99,6 @@ extension MainView {
         footerView.layer.opacity = 1
         backgroundColor = .systemGray5
     }
+    
+
 }

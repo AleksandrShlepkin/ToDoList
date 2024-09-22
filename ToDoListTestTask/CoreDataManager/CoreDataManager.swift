@@ -31,7 +31,7 @@ enum SearchPredicate {
 }
 
 public enum PredicateType: String {
-    case id
+    case taskID
     case name
 }
 
