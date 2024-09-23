@@ -8,13 +8,13 @@
 import UIKit
 
 final class MiddleView: UIView {
-    
+
     private lazy var stackView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private(set) lazy var allTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -28,7 +28,7 @@ final class MiddleView: UIView {
         button.tag = 0
         return button
     }()
-    
+
     private(set) lazy var openedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -41,7 +41,7 @@ final class MiddleView: UIView {
         button.tag = 1
         return button
     }()
-    
+
     private(set) lazy var closedTaskButton: BaseView = {
         let button = BaseView()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -54,27 +54,27 @@ final class MiddleView: UIView {
         button.tag = 2
         return button
     }()
-    
+
     private lazy var seporatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .red
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
 private extension MiddleView {
-    
+
     func setupView() {
         addSubview(stackView)
         stackView.addSubview(allTaskButton)
@@ -82,22 +82,22 @@ private extension MiddleView {
         stackView.addSubview(closedTaskButton)
         translatesAutoresizingMaskIntoConstraints = false
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            
+
             stackView.topAnchor.constraint(equalTo: topAnchor),
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor),
             stackView.trailingAnchor.constraint(equalTo: trailingAnchor),
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
+
             allTaskButton.topAnchor.constraint(equalTo: stackView.topAnchor),
             allTaskButton.leadingAnchor.constraint(equalTo: stackView.leadingAnchor),
             allTaskButton.bottomAnchor.constraint(equalTo: stackView.bottomAnchor),
-            
+
             openedTaskButton.leadingAnchor.constraint(equalTo: allTaskButton.trailingAnchor, constant: 5),
             openedTaskButton.centerYAnchor.constraint(equalTo: allTaskButton.centerYAnchor),
-            
+
             closedTaskButton.leadingAnchor.constraint(equalTo: openedTaskButton.trailingAnchor, constant: 5),
             closedTaskButton.trailingAnchor.constraint(equalTo: stackView.trailingAnchor),
             closedTaskButton.centerYAnchor.constraint(equalTo: openedTaskButton.centerYAnchor)
@@ -106,7 +106,7 @@ private extension MiddleView {
 }
 
 extension MiddleView {
-    
+
     func switchTask(status: FilterStatus) {
         switch status {
         case .all:
@@ -142,4 +142,3 @@ extension MiddleView {
         }
     }
 }
-

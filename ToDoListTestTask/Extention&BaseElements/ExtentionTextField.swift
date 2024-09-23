@@ -10,7 +10,10 @@ import Combine
 
 extension UITextField {
     func indent(size: CGFloat) {
-        self.leftView = UIView(frame: CGRect(x: self.frame.minX, y: self.frame.minY, width: size, height: self.frame.height))
+        self.leftView = UIView(frame: CGRect(x: self.frame.minX,
+                                             y: self.frame.minY,
+                                             width: size,
+                                             height: self.frame.height))
         self.leftViewMode = .always
     }
 }
@@ -22,5 +25,5 @@ extension UITextField {
             .map { ($0.object as? UITextField)?.text  ?? "" }
             .eraseToAnyPublisher()
     }
-    
+
 }

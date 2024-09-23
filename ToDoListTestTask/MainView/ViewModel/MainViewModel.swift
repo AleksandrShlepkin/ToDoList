@@ -20,22 +20,22 @@ public enum AddTask {
 }
 
 final class MainViewModel: ObservableObject {
-    
+
     private(set) var network: NetworkProtocol
     private let storage: StorageProtocol = StorageManager()
     private var fetchTask = [TaskEntity]()
     private var cancelable = Set<AnyCancellable>()
     @Published var dataPublisher: ToDoModel = ToDoModel(todos: [], total: 0, skip: 0, limit: 0)
     private var taskIdentifier: Int = 0
-    
+
     lazy var viewData: Published<ToDoModel>.Publisher = { [unowned self] in
         self.$dataPublisher
     }()
-    
+
     init(network: NetworkProtocol) {
         self.network = network
     }
-    
+
     func fetch() {
         self.fetchTask = storage.fetchAllTask()
         if fetchTask.isEmpty {
@@ -50,14 +50,14 @@ final class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
     private func setTaskIdentifier() {
         let tasks = dataPublisher.todos
         guard tasks.count > 0,
               let lastID = tasks.max(by: {$0.id < $1.id})?.id else {return}
         self.taskIdentifier = lastID + 1
     }
-    
+
     private func getDataForNetwork(complition: @escaping ([ToDo]) -> Void) {
         network.getDataWithGet(.getData, responseType: ToDoModel.self)
             .receive(on: DispatchQueue.main)
@@ -70,9 +70,9 @@ final class MainViewModel: ObservableObject {
                 }
             } receiveValue: {  result in
                 var tasks: [ToDo] = []
-                
+
                 for item in result.todos {
-                    
+
                     let task = ToDo(id: item.id,
                                     todo: item.todo,
                                     completed: item.completed,
@@ -83,15 +83,15 @@ final class MainViewModel: ObservableObject {
                     self.storage.saveTask(task: task)
                     tasks.append(task)
                 }
-            
+
                 complition(tasks)
             }
             .store(in: &cancelable)
     }
-    
+
     private func getDataFromBD(arrayTask: [TaskEntity], complition: @escaping ([ToDo]) -> Void) {
         var array = [ToDo]()
-        
+
         for item in arrayTask {
             let task = ToDo(id: Int(item.taskID),
                             todo: item.todo ?? "",
@@ -106,8 +106,8 @@ final class MainViewModel: ObservableObject {
             complition(array)
         }
     }
-    
-    func addTask(action: AddTask , task: ToDo) {
+
+    func addTask(action: AddTask, task: ToDo) {
         var currentTask = task
         switch action {
         case .create:
@@ -126,11 +126,11 @@ final class MainViewModel: ObservableObject {
             }
         }
     }
-    
+
     func deleteTask(id: Int) {
         storage.deleteTask(id: id)
     }
-    
+
     func completedTask(id: Int, completed: Bool) {
         guard let task = storage.fetchTask(id: id) else { return }
         task.completed = completed

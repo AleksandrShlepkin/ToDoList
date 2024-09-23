@@ -9,18 +9,18 @@ import Foundation
 import Combine
 
 protocol NetworkProtocol: AnyObject {
-        
+
     func getDataWithGet<NResponse> (_ route: NetworkModel,
                                     responseType: NResponse.Type)
     -> AnyPublisher<NResponse, Error> where NResponse: Decodable
 }
 
 final class NetworkManager: NetworkProtocol {
-    
+
     private let router: NetworkRouterProtocol = Router()
-    
+
     var cancelable = Set<AnyCancellable>()
-    
+
     // MARK: - получение модели данных с GET запросом
     func getDataWithGet<NResponse> (_ route: NetworkModel,
                                     responseType: NResponse.Type)
@@ -41,7 +41,7 @@ final class NetworkManager: NetworkProtocol {
                     promise(.success(result))
                 }
                 .store(in: &cancelable)
-            
+
         }.eraseToAnyPublisher()
     }
 }

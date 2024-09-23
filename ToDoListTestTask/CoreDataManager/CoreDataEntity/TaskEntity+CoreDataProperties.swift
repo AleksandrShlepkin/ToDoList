@@ -9,10 +9,8 @@
 import Foundation
 import CoreData
 
-
 @objc(TaskEntity)
 public class TaskEntity: NSManagedObject {
-
 }
 
 extension TaskEntity {
@@ -32,6 +30,5 @@ extension TaskEntity {
 
 }
 
-extension TaskEntity : Identifiable {
-
+extension TaskEntity: Identifiable {
 }

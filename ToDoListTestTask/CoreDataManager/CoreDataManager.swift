@@ -11,7 +11,7 @@ import CoreData
 enum SearchPredicate {
     case stringSearch(PredicateType, String)
     case integer(PredicateType, Int)
-    
+
     var predicateType: String {
         switch self {
         case .stringSearch(let predicateType, _):
@@ -36,10 +36,10 @@ public enum PredicateType: String {
 }
 
 final class CoreDataManager: NSObject {
-    
+
     static let shared = CoreDataManager()
     private override init() { }
-    
+
     lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "ToDoListTestTask")
         container.loadPersistentStores { storeDescription, error in
@@ -53,17 +53,17 @@ final class CoreDataManager: NSObject {
         container.viewContext.shouldDeleteInaccessibleFaults = true
         return container
     }()
-    
+
     private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
     }()
-    
+
     private(set) lazy var privateManagedObjectContext: NSManagedObjectContext = {
         let privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         privateContext.parent = mainManagedObjectContext
         return privateContext
     }()
-    
+
     private func saveMainContext() {
         if mainManagedObjectContext.hasChanges {
             do {
@@ -73,7 +73,7 @@ final class CoreDataManager: NSObject {
             }
         }
     }
-    
+
     private func savePrivateContext() {
         if privateManagedObjectContext.hasChanges {
             privateManagedObjectContext.performAndWait {
@@ -85,17 +85,17 @@ final class CoreDataManager: NSObject {
             }
         }
     }
-    
+
     private func saveChanges() {
         savePrivateContext()
         saveMainContext()
     }
 }
 
-//MARK: - CRUD function for CoreData
+// MARK: - CRUD function for CoreData
 
 extension CoreDataManager {
-    
+
     public func fetchObjects<T: NSManagedObject> (_ entityType: T.Type, predicate: SearchPredicate? = nil, fetchLimit: Int = 1) -> [T] {
         let request = NSFetchRequest<T>(entityName: String(describing: entityType))
         if let predicate {
@@ -109,7 +109,7 @@ extension CoreDataManager {
             return []
         }
     }
-    
+
     public func fetchObject<T: NSManagedObject>(_ entityType: T.Type,
                                                 predicate: SearchPredicate? = nil,
                                                 context: NSManagedObjectContext) -> T? {
@@ -119,27 +119,27 @@ extension CoreDataManager {
         }
         return try? context.fetch(request).first
     }
-    
+
     public func fetchObjects<T: NSManagedObject>(_ entityType: T.Type,
-                                                predicate: SearchPredicate? = nil,
-                                                context: NSManagedObjectContext) -> [T] {
+                                                 predicate: SearchPredicate? = nil,
+                                                 context: NSManagedObjectContext) -> [T] {
         let request = NSFetchRequest<T>(entityName: String(describing: entityType))
         if let predicate {
             request.predicate = NSPredicate(format: "\(predicate.predicateType) == %@", predicate.predicateData)
         }
         do {
-           let result = try context.fetch(request)
+            let result = try context.fetch(request)
             return result
         } catch {
-            
+
         }
         return []
     }
-    
+
     public func saveData() {
-            self.saveChanges()
+        self.saveChanges()
     }
-    
+
     public func updateData<T: NSManagedObject>(_ entityType: T.Type, objects: [T]) {
         privateManagedObjectContext.perform {
             for object in objects {
@@ -157,7 +157,7 @@ extension CoreDataManager {
             self.saveChanges()
         }
     }
-    
+
     func deleteData<T: NSManagedObject>(objects: [T]) {
         privateManagedObjectContext.perform {
             for object in objects {

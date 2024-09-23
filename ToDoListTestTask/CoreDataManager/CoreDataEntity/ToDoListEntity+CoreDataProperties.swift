@@ -44,6 +44,6 @@ extension ToDoListEntity {
 
 }
 
-extension ToDoListEntity : Identifiable {
+extension ToDoListEntity: Identifiable {
 
 }

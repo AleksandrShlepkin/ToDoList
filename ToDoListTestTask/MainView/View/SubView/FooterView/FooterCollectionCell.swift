@@ -12,10 +12,10 @@ protocol DelegateCell: AnyObject {
 }
 
 final class FooterCollectionCell: UICollectionViewCell {
-    
+
     weak var delegate: DelegateCell?
     var completed: Bool?
-    
+
     private lazy var taskView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -31,7 +31,7 @@ final class FooterCollectionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private(set) lazy var subTitleLabel: UILabel = {
         let label = UILabel()
         label.text = "Hello World"
@@ -41,7 +41,7 @@ final class FooterCollectionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private(set) lazy var dayLabel: UILabel = {
         let label = UILabel()
         label.text = Date().dayOfWeek()
@@ -50,7 +50,7 @@ final class FooterCollectionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private(set) lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.text = "Time label"
@@ -59,14 +59,14 @@ final class FooterCollectionCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private(set) lazy var separatorView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
+
     private(set) lazy var doneButton: BaseButton = {
         let button = BaseButton()
         button.layer.cornerRadius = 10
@@ -76,35 +76,40 @@ final class FooterCollectionCell: UICollectionViewCell {
         button.addGestureRecognizer(tap)
         return button
     }()
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
         setupConstraints()
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     override func layoutSubviews() {
     }
-    
+
     func setupViewData(_ task: ToDo) {
-           titleLabel.text = task.title
-           subTitleLabel.text = task.todo
-           dayLabel.text = task.day
-           completed = task.completed
-        if completed == true {
-            doneButton.backgroundColor = .systemBlue
-        } else {
-            doneButton.backgroundColor = .none
+            if task.completed {
+                let attributedTitle = NSMutableAttributedString(string: task.todo)
+                attributedTitle.addAttributes([.strikethroughColor: UIColor.black, .strikethroughStyle: NSUnderlineStyle.single.rawValue],
+                                              range: NSRange(location: 0, length: attributedTitle.length))
+                titleLabel.attributedText = attributedTitle
+                doneButton.layer.backgroundColor = UIColor.blue.cgColor
+            } else {
+                titleLabel.attributedText = nil
+                titleLabel.text = task.todo
+                doneButton.layer.backgroundColor = .none
+            }
+            subTitleLabel.text = task.title
+            dayLabel.text = task.day
+            completed = task.completed
         }
-       }
 }
 
 private extension FooterCollectionCell {
-    
+
     func setupView() {
         layer.cornerRadius = 10
         backgroundColor = .white
@@ -115,22 +120,22 @@ private extension FooterCollectionCell {
         addSubview(dayLabel)
         addSubview(doneButton)
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             taskView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
             taskView.leadingAnchor.constraint(equalTo: leadingAnchor),
             taskView.bottomAnchor.constraint(equalTo: separatorView.topAnchor, constant: -10),
-            
+
             titleLabel.topAnchor.constraint(equalTo: taskView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
             titleLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -10),
-            
+
             subTitleLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 5),
             subTitleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
             subTitleLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -10),
             subTitleLabel.bottomAnchor.constraint(equalTo: taskView.bottomAnchor),
-            
+
             doneButton.centerYAnchor.constraint(equalTo: taskView.centerYAnchor),
             doneButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             doneButton.leadingAnchor.constraint(greaterThanOrEqualTo: taskView.trailingAnchor, constant: 10),
@@ -140,14 +145,14 @@ private extension FooterCollectionCell {
             separatorView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             separatorView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             separatorView.heightAnchor.constraint(equalToConstant: 2),
-            
+
             dayLabel.topAnchor.constraint(equalTo: separatorView.bottomAnchor, constant: 10),
             dayLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             dayLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             dayLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -15)
         ])
     }
-    
+
     @objc func completedAction() {
         completed?.toggle()
         delegate?.changeFlag(index: indexPath, flag: completed)

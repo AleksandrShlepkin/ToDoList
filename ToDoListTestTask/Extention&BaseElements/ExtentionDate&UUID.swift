@@ -10,7 +10,7 @@ import Foundation
 extension Date {
     func dayOfWeek() -> String? {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "EEEE"
+        dateFormatter.dateFormat = "EEEE MMM d HH:mm "
         return dateFormatter.string(from: self).capitalized
     }
 }

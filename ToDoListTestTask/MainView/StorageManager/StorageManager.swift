@@ -17,19 +17,22 @@ protocol StorageProtocol: AnyObject {
 }
 
 final class StorageManager: NSObject {
-    
+
    private let context = CoreDataManager.shared
-        
+
     func fetchAllTask() -> [TaskEntity] {
         return context.fetchObjects(TaskEntity.self, context: CoreDataManager.shared.privateManagedObjectContext)
     }
-    
+
     func fetchTask(id: Int) -> TaskEntity? {
-        return context.fetchObject(TaskEntity.self, predicate: .integer(.taskID, id), context: CoreDataManager.shared.mainManagedObjectContext) ?? TaskEntity()
+        return context.fetchObject(TaskEntity.self,
+                                   predicate: .integer(.taskID, id),
+                                   context: CoreDataManager.shared.mainManagedObjectContext) ?? TaskEntity()
     }
-    
+
     func saveTask(task: ToDo) {
-        let taskToDB = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity", into: CoreDataManager.shared.privateManagedObjectContext) as! TaskEntity
+        guard let taskToDB = NSEntityDescription.insertNewObject(forEntityName: "TaskEntity",
+                                                                 into: CoreDataManager.shared.privateManagedObjectContext) as? TaskEntity else { return}
         taskToDB.taskID = Int64(task.id)
         taskToDB.todo = task.todo
         taskToDB.completed = task.completed
@@ -41,10 +44,12 @@ final class StorageManager: NSObject {
     }
 
     func deleteTask(id: Int) {
-        guard let task = context.fetchObject(TaskEntity.self, predicate: .integer(.taskID, id), context: context.privateManagedObjectContext) else { return }
+        guard let task = context.fetchObject(TaskEntity.self,
+                                             predicate: .integer(.taskID, id),
+                                             context: context.privateManagedObjectContext) else { return }
         context.deleteData(objects: [task])
     }
-    
+
     func saveContext() {
         context.saveData()
     }
