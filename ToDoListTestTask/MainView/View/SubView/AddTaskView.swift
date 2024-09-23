@@ -9,7 +9,18 @@ import UIKit
 
 final class AddTaskView: UIView {
     
-    private(set) lazy  var titleTextField: BaseTextField = {
+    
+    private(set) lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Create new Task"
+        label.numberOfLines = 0
+        label.font = UIFont.boldSystemFont(ofSize: 15)
+        label.textColor = .black
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private(set) lazy  var subTitleTextField: BaseTextField = {
         let text = BaseTextField()
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
@@ -22,7 +33,6 @@ final class AddTaskView: UIView {
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
         text.placeholder = "Task:"
-
         return text
     }()
     
@@ -33,9 +43,7 @@ final class AddTaskView: UIView {
         text.keyboardType = .default
         text.backgroundColor = .systemGray5
         text.placeholder = "Date:"
-
         text.inputView = datePicker
-        
         return text
     }()
     
@@ -52,11 +60,10 @@ final class AddTaskView: UIView {
         let button = BaseView()
         button.backgroundColor = .init(red: 0, green: 0, blue: 1, alpha: 0.1)
         button.mainLabel.textColor = .systemBlue
-        button.mainLabel.text = "New Task"
+        button.subLabel.text = "New Task"
         button.mainLabel.text = "+"
         button.mainLabel.textColor = .systemBlue
         button.layer.cornerRadius = 15
-        
         return button
     }()
     
@@ -71,11 +78,11 @@ final class AddTaskView: UIView {
     }
 }
 
-
 private extension AddTaskView {
     
     func setupView() {
-        addSubview(titleTextField)
+        addSubview(titleLabel)
+        addSubview(subTitleTextField)
         addSubview(taskTextField)
         addSubview(dateTextField)
         addSubview(addTaskButton)
@@ -85,13 +92,16 @@ private extension AddTaskView {
     }
     
     func setupConstraints() {
-        
         NSLayoutConstraint.activate([
-            titleTextField.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 35),
-            titleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            titleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             
-            taskTextField.topAnchor.constraint(equalTo: titleTextField.bottomAnchor, constant: 5),
+            titleLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: 35),
+            titleLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            
+            subTitleTextField.topAnchor.constraint(greaterThanOrEqualTo: titleLabel.bottomAnchor, constant: 35),
+            subTitleTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            subTitleTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
+            
+            taskTextField.topAnchor.constraint(equalTo: subTitleTextField.bottomAnchor, constant: 5),
             taskTextField.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
             taskTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             
@@ -100,10 +110,9 @@ private extension AddTaskView {
             dateTextField.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15),
             
             addTaskButton.topAnchor.constraint(equalTo: dateTextField.bottomAnchor, constant: 30),
-            addTaskButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 25),
-            addTaskButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
+            addTaskButton.centerXAnchor.constraint(equalTo: centerXAnchor),
             addTaskButton.bottomAnchor.constraint(greaterThanOrEqualTo: bottomAnchor, constant: -35),
-
+            addTaskButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
     

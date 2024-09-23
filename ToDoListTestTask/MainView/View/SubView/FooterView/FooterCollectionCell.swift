@@ -11,11 +11,9 @@ protocol DelegateCell: AnyObject {
     func changeFlag(index: IndexPath?, flag: Bool?)
 }
 
-
 final class FooterCollectionCell: UICollectionViewCell {
     
     weak var delegate: DelegateCell?
-    var index: IndexPath?
     var completed: Bool?
     
     private lazy var taskView: UIView = {
@@ -24,7 +22,6 @@ final class FooterCollectionCell: UICollectionViewCell {
         return view
     }()
 
-    
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.text = "No Title"
@@ -84,7 +81,6 @@ final class FooterCollectionCell: UICollectionViewCell {
         super.init(frame: frame)
         setupView()
         setupConstraints()
-        
     }
     
     required init?(coder: NSCoder) {
@@ -99,14 +95,12 @@ final class FooterCollectionCell: UICollectionViewCell {
            subTitleLabel.text = task.todo
            dayLabel.text = task.day
            completed = task.completed
-           
         if completed == true {
             doneButton.backgroundColor = .systemBlue
         } else {
             doneButton.backgroundColor = .none
         }
        }
-    
 }
 
 private extension FooterCollectionCell {
@@ -119,11 +113,7 @@ private extension FooterCollectionCell {
         taskView.addSubview(subTitleLabel)
         addSubview(separatorView)
         addSubview(dayLabel)
-
         addSubview(doneButton)
-
-
-
     }
     
     func setupConstraints() {
@@ -134,7 +124,7 @@ private extension FooterCollectionCell {
             
             titleLabel.topAnchor.constraint(equalTo: taskView.topAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            titleLabel.trailingAnchor.constraint(equalTo: taskView.trailingAnchor, constant: -10),
             
             subTitleLabel.topAnchor.constraint(lessThanOrEqualTo: titleLabel.bottomAnchor, constant: 5),
             subTitleLabel.leadingAnchor.constraint(equalTo: taskView.leadingAnchor, constant: 15),
@@ -158,13 +148,11 @@ private extension FooterCollectionCell {
         ])
     }
     
-    
     @objc func completedAction() {
         completed?.toggle()
-        delegate?.changeFlag(index: index, flag: completed)
+        delegate?.changeFlag(index: indexPath, flag: completed)
         if completed == true {
             doneButton.backgroundColor = .systemBlue
-            
         } else {
             doneButton.backgroundColor = .none
         }

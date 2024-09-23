@@ -34,9 +34,7 @@ final class HeaderView: UIView {
         button.subLabel.text = "New Task"
         button.mainLabel.text = "+"
         button.subLabel.textColor = .systemBlue
-
         button.layer.cornerRadius = 15
-        
         return button
     }()
     
@@ -58,25 +56,23 @@ private extension HeaderView {
         addSubview(mainLabel)
         addSubview(subLabel)
         addSubview(addButton)
-        
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            mainLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            mainLabel.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            mainLabel.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -5),
+            mainLabel.topAnchor.constraint(equalTo: topAnchor),
+            mainLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            subLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
+            addButton.leadingAnchor.constraint(greaterThanOrEqualTo: mainLabel.trailingAnchor, constant: 20),
+            addButton.trailingAnchor.constraint(equalTo: trailingAnchor),
+            addButton.topAnchor.constraint(equalTo: topAnchor),
+            addButton.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            subLabel.leadingAnchor.constraint(equalTo: leadingAnchor),
             subLabel.topAnchor.constraint(equalTo: mainLabel.bottomAnchor, constant: 5),
-            
-            addButton.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 20),
-            addButton.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10),
-            addButton.trailingAnchor.constraint(greaterThanOrEqualTo: trailingAnchor, constant: -20),
-            addButton.heightAnchor.constraint(equalToConstant: 40)
-            
-            
+            subLabel.bottomAnchor.constraint(equalTo: bottomAnchor),
+            subLabel.trailingAnchor.constraint(lessThanOrEqualTo: trailingAnchor)
         ])
     }
-
 }
+

@@ -50,10 +50,7 @@ class Router: NetworkRouterProtocol {
             let session = URLSession.shared
             guard let url = URL(string:  "\(route.baseURL)\(route.path)") else {return}
             var request = URLRequest(url: url,
-                                     timeoutInterval: 60.0)
-           // var request = URLRequest(url: route.baseURL.appendingPathComponent(route.path),
-             //                        timeoutInterval: 60.0)
-            
+                                     timeoutInterval: 60.0)            
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
                 request.httpBody = try JSONEncoder().encode(data)

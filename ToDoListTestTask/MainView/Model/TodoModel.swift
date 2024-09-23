@@ -15,13 +15,13 @@ struct ToDoModel: Codable {
 
 // MARK: - Todo
 struct ToDo: Codable {
-    let id: Int?
-    let todo: String
+    var id: Int
+    var todo: String
     var completed: Bool
     let userID: Int
-    let title: String?
-    let day: String?
-    let date: Date?
+    var title: String?
+    var day: String?
+    var date: Date?
 
     enum CodingKeys: String, CodingKey {
         case id, todo, completed, title, day, date

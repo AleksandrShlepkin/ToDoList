@@ -9,7 +9,6 @@ import Foundation
 
 enum NetworkModel {
     case getData
-    
 }
 
 extension NetworkModel: EndPointType {
@@ -26,7 +25,6 @@ extension NetworkModel: EndPointType {
         switch self {
         case .getData:
             return "\(apiPath)"
-
         }
     }
     
@@ -34,7 +32,6 @@ extension NetworkModel: EndPointType {
         switch self {
         case .getData:
             return .get
-
         }
     }
     
@@ -47,7 +44,6 @@ extension NetworkModel: EndPointType {
         case .getData:
             return "/todos"
         }
-        
     }
 }
 

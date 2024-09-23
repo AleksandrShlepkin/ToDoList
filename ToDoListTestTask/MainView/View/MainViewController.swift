@@ -8,22 +8,21 @@
 import UIKit
 import Combine
 
-
-
 class MainViewController: UIViewController {
     
     var mainView: MainView
     let viewModel = MainViewModel(network: NetworkManager())
     private var cancelabel = Set<AnyCancellable>()
     var flag: Bool = false
-    var status: Status = .all
+    var status: FilterStatus = .all
     var addAction: AddTask = .create
-    
+    var indexpathForUpdate: IndexPath?
     var tasks = [ToDo]() {
         didSet {
             viewCountTask()
         }
     }
+    var tasksForView: [ToDo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,9 +30,8 @@ class MainViewController: UIViewController {
         mainView.footerView.delegate = self
         mainView.footerView.dataSource = self
         connectSubscriber()
-        viewModel.fetch(status: status)
+        viewModel.fetch()
         addGesture()
-        
     }
     
     init(view: MainView) {
@@ -45,35 +43,32 @@ class MainViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     private func connectSubscriber() {
         viewModel.viewData
             .receive(on: DispatchQueue.main)
             .compactMap({$0})
             .sink { [weak self] result in
-                self?.tasks = result.todos
-                self?.mainView.footerView.reloadData()
+                guard let self else {return}
+                self.tasks = result.todos
+                self.filteredTasks(self.status)
+                self.mainView.footerView.reloadData()
             }
             .store(in: &cancelabel)
     }
 }
 
-
 //MARK: - CollectionView delegate and DataSource
-extension MainViewController: UICollectionViewDelegate {
-    
-}
+extension MainViewController: UICollectionViewDelegate { }
 
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tasks.count
+        return tasksForView.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FooterCollectionCell.identifier, for: indexPath) as? FooterCollectionCell else { return UICollectionViewCell() }
-        cell.setupViewData(tasks[indexPath.item])
+        cell.setupViewData(tasksForView[indexPath.item])
         cell.delegate = self
-        cell.index = indexPath
         return cell
     }
     
@@ -84,19 +79,24 @@ extension MainViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as? FooterCollectionCell
-        let tap = UITapGestureRecognizer(target: self, action: #selector(openRemakeView))
-        print("Index: \(indexPath.item)")
-        cell?.addGestureRecognizer(tap)
+        guard let cell = collectionView.cellForItem(at: indexPath) as? FooterCollectionCell else { return }
+        self.indexpathForUpdate = indexPath
+        self.openRemakeView(data: tasks, index: indexPath, cell: cell)
     }
-    
 }
 
+//MARK: - DelegateCell
 extension MainViewController: DelegateCell {
+    
     func changeFlag(index: IndexPath?, flag: Bool?) {
         guard let index = index else { return }
         guard let flag = flag else { return }
-        viewModel.completedTask(id: tasks[index.item].id!, completed: flag)
+        let completionTask = self.tasksForView[index.row]
+        if status != .all {
+            self.tasksForView.remove(at: index.row)
+            self.mainView.footerView.deleteItems(at: [index])
+        }
+        viewModel.completedTask(id: completionTask.id, completed: flag)
     }
 }
 
@@ -109,23 +109,21 @@ extension MainViewController {
         return formatter.string(from: item[index.item].date ?? Date.now)
     }
     
-    
     @objc func saveNewTask(_ gesture: UITapGestureRecognizer) {
-        guard let indexPath = mainView.footerView.indexPathForItem(at: gesture.location(in: mainView.footerView)) else {
-            return
+        var indexPath = IndexPath(row: 0, section: 0)
+        if let indexpathForUpdate {
+            indexPath = indexpathForUpdate
         }
         remakeTask(index: indexPath)
-
     }
     
     private func deleteTask(index: IndexPath) {
-        flag.toggle()
-        viewModel.deleteTask(id: tasks[index.item].id ?? 0)
-        tasks.remove(at: index.item)
+        viewModel.deleteTask(id: tasksForView[index.item].id)
+        tasksForView.remove(at: index.item)
+        tasks.removeAll(where: {$0.id == tasksForView[index.item].id})
         mainView.footerView.deleteItems(at: [index])
-        flag.toggle()
+        mainView.footerView.reloadData()
     }
-    
     
     @objc func handleSwipeGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
         guard let indexPath = mainView.footerView.indexPathForItem(at: gestureRecognizer.location(in: mainView.footerView)) else {
@@ -134,28 +132,15 @@ extension MainViewController {
         self.deleteTask(index: indexPath)
     }
     
-//    @objc func handleTapGesture(_ gestureRecognizer: UISwipeGestureRecognizer) {
-//        guard let indexPath = mainView.footerView.indexPathForItem(at: gestureRecognizer.location(in: mainView.footerView)) else {
-//            return
-//        }
-//        self.remakeTask(index: indexPath)
-//    }
-    
     func addGesture() {
-        
         let tap = UITapGestureRecognizer(target: self, action: #selector(saveNewTask))
         mainView.addTaskView.addTaskButton.addGestureRecognizer(tap)
-        
-        let tapClosed = UITapGestureRecognizer(target: self, action: #selector(showClosedTasks))
-        mainView.middleView.closedTaskButton.addGestureRecognizer(tapClosed)
-        
-        let tapOpen = UITapGestureRecognizer(target: self, action: #selector(showOpenTasks))
-        mainView.middleView.openedTaskButton.addGestureRecognizer(tapOpen)
-        
-        let tapAll = UITapGestureRecognizer(target: self, action: #selector(showAllTasks))
-        mainView.middleView.allTaskButton.addGestureRecognizer(tapAll)
-        
-        
+        let tapFilterAll = UITapGestureRecognizer(target: self, action: #selector(tapFilterTask))
+        let tapFilterClosed = UITapGestureRecognizer(target: self, action: #selector(tapFilterTask))
+        let tapFilterOpen = UITapGestureRecognizer(target: self, action: #selector(tapFilterTask))
+        mainView.middleView.closedTaskButton.addGestureRecognizer(tapFilterAll)
+        mainView.middleView.openedTaskButton.addGestureRecognizer(tapFilterClosed)
+        mainView.middleView.allTaskButton.addGestureRecognizer(tapFilterOpen)
     }
 }
 
@@ -170,49 +155,78 @@ extension MainViewController {
     func viewCountTask(){
         mainView.middleView.allTaskButton.subLabel.text = String(tasks.count)
         mainView.middleView.openedTaskButton.subLabel.text = String(returnCountTask(completed: false).count)
-        mainView.middleView.closedTaskButton.subLabel.text = String(returnCountTask(completed: true).count)
-        
+        mainView.middleView.closedTaskButton.subLabel.text = String(returnCountTask(completed: true).count) 
     }
     
-    @objc func showClosedTasks() {
-        self.status = .closed
-        viewModel.fetch(status: status)
+    @objc func tapFilterTask(_ sender: UIGestureRecognizer) {
+        guard let view = sender.view else {return}
+        switch view.tag {
+        case 0:
+            self.status = .all
+        case 1:
+            self.status = .open
+        case 2:
+            self.status = .closed
+       
+        default: return
+        }
+        self.filteredTasks(self.status)
         mainView.middleView.switchTask(status: status)
-        mainView.footerView.reloadData()
+        self.mainView.footerView.reloadData()
     }
-    @objc func showOpenTasks() {
-        self.status = .open
-        viewModel.fetch(status: status)
-        mainView.middleView.switchTask(status: status)
-        mainView.footerView.reloadData()
-    }
-    @objc func showAllTasks() {
-        self.status = .all
-        viewModel.fetch(status: status)
-        mainView.middleView.switchTask(status: status)
-        mainView.footerView.reloadData()
+    private func filteredTasks(_ state: FilterStatus) {
+        switch state {
+        case .all:
+            self.tasksForView = tasks
+        case .open:
+            self.tasksForView = tasks.filter({!$0.completed})
+        case .closed:
+            self.tasksForView = tasks.filter({$0.completed})
+        }
     }
     
     func remakeTask(index: IndexPath?) {
         switch addAction{
         case .create:
-            guard let title = mainView.addTaskView.titleTextField.text else { return }
+            guard let title = mainView.addTaskView.subTitleTextField.text else { return }
             guard let taskText = mainView.addTaskView.taskTextField.text else { return }
-            let date = mainView.addTaskView.dateTextField.text
-            let id = Int.random(in: 1...999999999)
-            viewModel.addTask(action: .create, id: id , todo: taskText, completed: false, userID: 1, title: title, day: date, date: Date.now)
+            guard let date = mainView.addTaskView.dateTextField.text else { return }
+            if title != "" || taskText != "" {
+                let task = ToDo(id: 0,
+                                todo: taskText,
+                                completed: false,
+                                userID: 1,
+                                title: title,
+                                day: date,
+                                date: Date.now)
+                viewModel.addTask(action: .create, task: task)
+            }
             mainView.closeAddTask()
+            filteredTasks(self.status)
         case .update:
-            guard let title = mainView.addTaskView.titleTextField.text else { return }
+            guard let indexPath = index else {return}
+            guard let title = mainView.addTaskView.subTitleTextField.text else { return }
             guard let taskText = mainView.addTaskView.taskTextField.text else { return }
             let date = mainView.addTaskView.dateTextField.text
-            viewModel.addTask(action: .update, id: tasks[index!.item].id ?? 0 , todo: taskText, completed: false, userID: 1, title: title, day: date, date: Date.now)
+            var task = self.tasksForView[indexPath.row]
+            task.todo = taskText
+            task.title = title
+            task.day = date
+            task.date = Date.now
+            viewModel.addTask(action: .update, task: task)
             mainView.closeAddTask()
+            addAction = .create
+            self.tasksForView[indexPath.row] = task
+            self.mainView.footerView.reloadItems(at: [indexPath])
         }
     }
     
-    @objc func openRemakeView() {
+    private func openRemakeView(data: [ToDo], index: IndexPath, cell: FooterCollectionCell) {
         mainView.addNewTask()
         addAction = .update
+        mainView.addTaskView.titleLabel.text = "Update Task"
+        mainView.addTaskView.subTitleTextField.text = data[index.row].title
+        mainView.addTaskView.taskTextField.text = data[index.row].todo
+        mainView.addTaskView.dateTextField.text = data[index.row].day
     }
 }

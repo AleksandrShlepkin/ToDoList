@@ -34,7 +34,6 @@ private extension BaseButton {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             doneImage.topAnchor.constraint(equalTo: topAnchor, constant: 1),

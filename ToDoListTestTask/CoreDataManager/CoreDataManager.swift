@@ -35,7 +35,6 @@ public enum PredicateType: String {
     case name
 }
 
-
 final class CoreDataManager: NSObject {
     
     static let shared = CoreDataManager()
@@ -54,7 +53,6 @@ final class CoreDataManager: NSObject {
         container.viewContext.shouldDeleteInaccessibleFaults = true
         return container
     }()
-    
     
     private(set) lazy var mainManagedObjectContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
@@ -85,7 +83,6 @@ final class CoreDataManager: NSObject {
                     print("CoreDataManager --------> Can't save private context. Error: \(error.localizedDescription)")
                 }
             }
- 
         }
     }
     
@@ -138,7 +135,6 @@ extension CoreDataManager {
         }
         return []
     }
-    
     
     public func saveData() {
             self.saveChanges()
