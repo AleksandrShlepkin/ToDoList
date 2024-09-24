@@ -92,17 +92,17 @@ final class FooterCollectionCell: UICollectionViewCell {
 
     func setupViewData(_ task: ToDo) {
             if task.completed {
-                let attributedTitle = NSMutableAttributedString(string: task.todo)
+                let attributedTitle = NSMutableAttributedString(string: task.title ?? ""    )
                 attributedTitle.addAttributes([.strikethroughColor: UIColor.black, .strikethroughStyle: NSUnderlineStyle.single.rawValue],
                                               range: NSRange(location: 0, length: attributedTitle.length))
                 titleLabel.attributedText = attributedTitle
                 doneButton.layer.backgroundColor = UIColor.blue.cgColor
             } else {
                 titleLabel.attributedText = nil
-                titleLabel.text = task.todo
+                titleLabel.text = task.title
                 doneButton.layer.backgroundColor = .none
             }
-            subTitleLabel.text = task.title
+            subTitleLabel.text = task.todo
             dayLabel.text = task.day
             completed = task.completed
         }
